@@ -1,0 +1,47 @@
+name: Lumen
+version: @VERSION@
+authors: [ ricodevvv, FilleDev ]
+description: Cosmetics for 1.8 up to 26.x, forked from ProCosmetics.
+main: com.ricodev.lumen.LumenPlugin
+load: POSTWORLD
+depend: [ packetevents ]
+softdepend: [ Essentials, Multiverse-Core, PremiumVanish, PlaceholderAPI, PlayerPoints, SuperVanish, Vault ]
+api-version: 1.13
+commands:
+  lumen:
+    description: Lumen Command
+    usage: /lumen
+    permission: lumen.command
+    aliases:
+      - "lm"
+  cosmetics:
+    description: Opens the cosmetics menu.
+    usage: /cosmetics
+    permission: lumen.command.cosmetics
+  equip:
+    description: Equips a cosmetic.
+    usage: /equip
+    permission: lumen.command.equip
+  unequip:
+    description: Unequips a cosmetic.
+    usage: /unequip <type>
+    permission: lumen.command.unequip
+  unequipall:
+    description: Unequips your cosmetics.
+    usage: /unequipall
+    permission: lumen.command.unequipall
+  toggleselfview:
+    description: Toggles the self view
+    usage: /toggleselfview <type>
+    permission: lumen.command.toggleselfview
+
+
+
+
+
+
+
+
+
+
+

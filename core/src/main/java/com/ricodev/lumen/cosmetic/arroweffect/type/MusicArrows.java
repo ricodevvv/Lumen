@@ -1,0 +1,67 @@
+/*
+ * This file is part of Lumen, a fork of ProCosmetics - https://github.com/FilleDev/ProCosmetics
+ * Copyright (C) 2025-2026 FilleDev and contributors
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+package com.ricodev.lumen.cosmetic.arroweffect.type;
+
+import com.ricodev.lumen.compat.Particles;
+import com.ricodev.lumen.compat.LumenParticle;
+
+import org.bukkit.Location;
+import com.ricodev.lumen.api.cosmetic.CosmeticContext;
+import com.ricodev.lumen.api.cosmetic.arroweffect.ArrowEffectBehavior;
+import com.ricodev.lumen.api.cosmetic.arroweffect.ArrowEffectType;
+import com.ricodev.lumen.util.MathUtil;
+
+public class MusicArrows implements ArrowEffectBehavior {
+
+    private static final int HIT_AMOUNT = 15;
+    private static final double HIT_SPREAD = 1.0d;
+
+    @Override
+    public void onEquip(CosmeticContext<ArrowEffectType> context) {
+    }
+
+    @Override
+    public void onUpdate(CosmeticContext<ArrowEffectType> context, Location location) {
+        Particles.spawn(location.getWorld(), LumenParticle.NOTE,
+                location,
+                0,
+                MathUtil.randomRange(0.0d, 24.0d),
+                0.0f,
+                0.0f
+        );
+    }
+
+    @Override
+    public void onArrowHit(CosmeticContext<ArrowEffectType> context, Location location) {
+        for (int i = 0; i < HIT_AMOUNT; ++i) {
+            Particles.spawn(location.getWorld(), LumenParticle.NOTE,
+                    location.getX() + MathUtil.randomRange(-HIT_SPREAD, HIT_SPREAD),
+                    location.getY() + MathUtil.randomRange(-HIT_SPREAD, HIT_SPREAD),
+                    location.getZ() + MathUtil.randomRange(-HIT_SPREAD, HIT_SPREAD),
+                    0,
+                    MathUtil.randomRange(0.0d, 24.0d),
+                    0.0f,
+                    0.0f
+            );
+        }
+    }
+
+    @Override
+    public void onUnequip(CosmeticContext<ArrowEffectType> context) {
+    }
+}

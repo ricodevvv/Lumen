@@ -1,0 +1,51 @@
+/*
+ * This file is part of Lumen, a fork of ProCosmetics - https://github.com/FilleDev/ProCosmetics
+ * Copyright (C) 2025-2026 FilleDev and contributors
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+package com.ricodev.lumen.cosmetic.particleeffect.type;
+
+import com.ricodev.lumen.compat.Particles;
+import com.ricodev.lumen.compat.LumenParticle;
+
+import org.bukkit.Location;
+import com.ricodev.lumen.api.cosmetic.CosmeticContext;
+import com.ricodev.lumen.api.cosmetic.particleeffect.ParticleEffectBehavior;
+import com.ricodev.lumen.api.cosmetic.particleeffect.ParticleEffectType;
+
+public class ShadowWalk implements ParticleEffectBehavior {
+
+    private static final double HEIGHT_OFFSET = 0.1d;
+
+    @Override
+    public void onEquip(CosmeticContext<ParticleEffectType> context) {
+    }
+
+    @Override
+    public void onUpdate(CosmeticContext<ParticleEffectType> context, Location location) {
+        if (context.getUser().isMoving()) {
+            spawnMovingEffect(location);
+        }
+    }
+
+    @Override
+    public void onUnequip(CosmeticContext<ParticleEffectType> context) {
+    }
+
+    private void spawnMovingEffect(Location location) {
+        location.add(0.0d, HEIGHT_OFFSET, 0.0d);
+        Particles.spawn(location.getWorld(), LumenParticle.LARGE_SMOKE, location, 0);
+    }
+}

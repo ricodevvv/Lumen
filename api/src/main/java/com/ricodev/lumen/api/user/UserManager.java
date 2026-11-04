@@ -1,0 +1,219 @@
+/*
+ * This file is part of Lumen, a fork of ProCosmetics - https://github.com/FilleDev/ProCosmetics
+ * Copyright (C) 2025-2026 FilleDev and contributors
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+package com.ricodev.lumen.api.user;
+
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * Manages user instances and provides various methods for retrieving users.
+ *
+ * <p>Access patterns:
+ * <ul>
+ *   <li><b>Connecting</b> - Only returns users currently in the process of connecting (pre-login)</li>
+ *   <li><b>Connected</b> - Only returns users currently online</li>
+ *   <li><b>ConnectedOrCached</b> - Returns online users or recently cached offline users</li>
+ *   <li><b>Get</b> - Loads from database if not found in memory (synchronous)</li>
+ *   <li><b>GetAsync</b> - Loads from database if not found in memory (asynchronous)</li>
+ * </ul>
+ */
+public interface UserManager {
+
+    /**
+     * Gets all currently connected users.
+     *
+     * @return an immutable collection of all online users
+     */
+    Collection<? extends User> getAllConnected();
+
+    /**
+     * Gets a user that is currently in the process of connecting (pre-login).
+     *
+     * @param uuid the user's UUID
+     * @return the connecting user, or null if not found
+     */
+    @Nullable
+    User getConnecting(@Nullable UUID uuid);
+
+    /**
+     * Gets a connected user by their UUID.
+     *
+     * @param uuid the user's UUID
+     * @return the connected user, or null if not online
+     */
+    @Nullable
+    User getConnected(@Nullable UUID uuid);
+
+    /**
+     * Gets a connected user by their Player object.
+     *
+     * @param player the player
+     * @return the connected user, or null if player is null or not online
+     */
+    @Nullable
+    default User getConnected(@Nullable Player player) {
+        if (player == null) {
+            return null;
+        }
+        return getConnected(player.getUniqueId());
+    }
+
+    /**
+     * Gets a connected user by their name (case-insensitive).
+     * This method iterates through all connected users.
+     *
+     * @param name the user's name
+     * @return the connected user, or null if name is null or user is not online
+     */
+    @Nullable
+    default User getConnected(@Nullable String name) {
+        if (name == null) {
+            return null;
+        }
+
+        for (User user : getAllConnected()) {
+            if (user.getName().equalsIgnoreCase(name)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets a connected user by their internal database ID.
+     * This method iterates through all connected users.
+     *
+     * @param id the user's database ID
+     * @return the connected user, or null if not online
+     */
+    @Nullable
+    default User getConnected(int id) {
+        for (User user : getAllConnected()) {
+            if (user.getDatabaseId() == id) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets a user by their UUID from connected users or cache.
+     * This checks online users first, then falls back to recently cached offline users.
+     *
+     * @param uuid the user's UUID
+     * @return the user if connected or cached, or null otherwise
+     */
+    @Nullable
+    User getConnectedOrCached(@Nullable UUID uuid);
+
+    /**
+     * Gets a user by their Player object from connected users or cache.
+     *
+     * @param player the player
+     * @return the user if connected or cached, or null if player is null or user not found
+     */
+    @Nullable
+    default User getConnectedOrCached(@Nullable Player player) {
+        if (player == null) {
+            return null;
+        }
+        return getConnectedOrCached(player.getUniqueId());
+    }
+
+    /**
+     * Gets a user by their name from connected users or cache.
+     *
+     * @param name the user's name
+     * @return the user if connected or cached, or null otherwise
+     */
+    @Nullable
+    User getConnectedOrCached(@Nullable String name);
+
+    /**
+     * Gets a user by their database ID from connected users or cache.
+     *
+     * @param id the user's database ID
+     * @return the user if connected or cached, or null otherwise
+     */
+    @Nullable
+    User getConnectedOrCached(int id);
+
+    /**
+     * Gets a user by their UUID, loading from database if necessary (synchronous).
+     * This checks memory first, then loads from the database if not found.
+     * <b>Warning:</b> This method blocks the current thread during database access.
+     *
+     * @param uuid the user's UUID
+     * @return the user, or null if not found in database
+     */
+    @Nullable
+    User get(@Nullable UUID uuid);
+
+    /**
+     * Gets a user by their name, loading from database if necessary (synchronous).
+     * This checks memory first, then loads from the database if not found.
+     * <b>Warning:</b> This method blocks the current thread during database access.
+     *
+     * @param name the user's name
+     * @return the user, or null if not found in database
+     */
+    @Nullable
+    User get(@Nullable String name);
+
+    /**
+     * Gets a user by their database ID, loading from database if necessary (synchronous).
+     * This checks memory first, then loads from the database if not found.
+     * <b>Warning:</b> This method blocks the current thread during database access.
+     *
+     * @param id the user's database ID
+     * @return the user, or null if not found in database
+     */
+    @Nullable
+    User get(int id);
+
+    /**
+     * Gets a user by their UUID asynchronously, loading from database if necessary.
+     * This checks memory first, then loads from the database if not found.
+     *
+     * @param uuid the user's UUID
+     * @return a completableFuture containing the user, or null if not found in database
+     */
+    CompletableFuture<@Nullable User> getAsync(@Nullable UUID uuid);
+
+    /**
+     * Gets a user by their name asynchronously, loading from database if necessary.
+     * This checks memory first, then loads from the database if not found.
+     *
+     * @param name the user's name
+     * @return a completableFuture containing the user, or null if not found in database
+     */
+    CompletableFuture<@Nullable User> getAsync(@Nullable String name);
+
+    /**
+     * Gets a user by their database ID asynchronously, loading from database if necessary.
+     * This checks memory first, then loads from the database if not found.
+     *
+     * @param id the user's database ID
+     * @return a completableFuture containing the user, or null if not found in database
+     */
+    CompletableFuture<@Nullable User> getAsync(int id);
+}
