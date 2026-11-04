@@ -23,6 +23,7 @@ import com.ricodev.lumen.api.config.Config;
 import com.ricodev.lumen.api.cosmetic.CosmeticType;
 import com.ricodev.lumen.api.cosmetic.gadget.GadgetType;
 import com.ricodev.lumen.api.cosmetic.registry.CosmeticCategory;
+import com.ricodev.lumen.api.treasure.TreasureChest;
 import com.ricodev.lumen.api.user.User;
 import com.ricodev.lumen.cosmetic.CosmeticTypeImpl;
 import com.ricodev.lumen.storage.connection.ConnectionProvider;
@@ -57,10 +58,15 @@ public abstract class SQLDatabase extends DatabaseImpl {
     private static final String SQL_REMOVE_GADGET_AMMO = "UPDATE %s SET amount = amount - ? WHERE player_id = ? AND gadget = ? AND amount >= ?;";
     private static final String SQL_GET_GADGET_AMMO = "SELECT amount FROM %s WHERE player_id = ? AND gadget = ?;";
 
+    private static final String SQL_LOAD_USER_TREASURE_CHESTS = "SELECT treasure_chest, amount FROM %s WHERE player_id = ?;";
+    private static final String SQL_REMOVE_TREASURE_CHESTS = "UPDATE %s SET amount = amount - ? WHERE player_id = ? AND treasure_chest = ? AND amount >= ?;";
+    private static final String SQL_GET_TREASURE_CHEST = "SELECT amount FROM %s WHERE player_id = ? AND treasure_chest = ?;";
+
     protected final ConnectionProvider connectionProvider;
     private final String usersTable;
     private final String cosmeticsTable;
     private final String gadgetAmmoTable;
+    private final String treasureChestsTable;
 
     public SQLDatabase(LumenPlugin plugin, ConnectionProvider connectionProvider) {
         super(plugin);
@@ -73,6 +79,7 @@ public abstract class SQLDatabase extends DatabaseImpl {
         usersTable = tablePrefix + "_users";
         cosmeticsTable = tablePrefix + "_cosmetics";
         gadgetAmmoTable = tablePrefix + "_gadget_ammo";
+        treasureChestsTable = tablePrefix + "_treasure_chests";
 
         initializeTables();
     }
@@ -83,11 +90,17 @@ public abstract class SQLDatabase extends DatabaseImpl {
 
     protected abstract String getCreateGadgetAmmoTable();
 
+    protected abstract String getCreateTreasureChestsTable();
+
     protected abstract String getEquipCosmeticQuery();
 
     protected abstract String getAddGadgetAmmo();
 
     protected abstract String getSetGadgetAmmo();
+
+    protected abstract String getAddTreasureChests();
+
+    protected abstract String getSetTreasureChests();
 
     protected void initializeTables() {
         try (Connection connection = connectionProvider.getConnection()) {
@@ -95,6 +108,7 @@ public abstract class SQLDatabase extends DatabaseImpl {
                 statement.addBatch(String.format(getCreateUsersTable(), usersTable));
                 statement.addBatch(String.format(getCreateCosmeticsTable(), cosmeticsTable, usersTable));
                 statement.addBatch(String.format(getCreateGadgetAmmoTable(), gadgetAmmoTable, usersTable));
+                statement.addBatch(String.format(getCreateTreasureChestsTable(), treasureChestsTable, usersTable));
                 statement.executeBatch();
             }
         } catch (SQLException e) {
@@ -170,6 +184,7 @@ public abstract class SQLDatabase extends DatabaseImpl {
             loadUserCosmetics(user);
         }
         loadUserGadgetAmmo(user);
+        loadUserTreasureChests(user);
 
         return user;
     }
@@ -222,6 +237,26 @@ public abstract class SQLDatabase extends DatabaseImpl {
             }
         } catch (SQLException e) {
             plugin.getLogger().log(Level.WARNING, "Failed to load gadget ammo for player: " + user + ".", e);
+        }
+    }
+
+    private void loadUserTreasureChests(UserImpl user) {
+        try (Connection connection = connectionProvider.getConnection();
+             PreparedStatement statement = connection.prepareStatement(String.format(SQL_LOAD_USER_TREASURE_CHESTS, treasureChestsTable))) {
+            statement.setInt(1, user.getDatabaseId());
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    TreasureChest treasureChest = plugin.getTreasureChestManager().getTreasureChest(resultSet.getString("treasure_chest"));
+                    int amount = resultSet.getInt("amount");
+
+                    if (treasureChest != null) {
+                        user.setTreasureChests(treasureChest, amount);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            plugin.getLogger().log(Level.WARNING, "Failed to load treasure chests for player: " + user + ".", e);
         }
     }
 
@@ -299,6 +334,7 @@ public abstract class SQLDatabase extends DatabaseImpl {
         if (category == plugin.getCategoryRegistries().music()) {
             return CompletableFuture.completedFuture(true);
         }
+
         return CompletableFuture.supplyAsync(() -> {
             try (Connection connection = connectionProvider.getConnection();
                  PreparedStatement statement = connection.prepareStatement(String.format(SQL_UNEQUIP_COSMETIC, cosmeticsTable))) {
@@ -577,6 +613,121 @@ public abstract class SQLDatabase extends DatabaseImpl {
         }).thenApplyAsync(result -> {
             if (result.leftBoolean()) {
                 user.setAmmo(gadgetType, result.rightInt());
+            }
+            return result;
+        }, plugin.getSyncExecutor());
+    }
+
+    @Override
+    public CompletableFuture<BooleanIntPair> addTreasureChestsAsyncImpl(User user, TreasureChest treasureChest, int amount) {
+        return CompletableFuture.supplyAsync(() -> {
+            try (Connection connection = connectionProvider.getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement(String.format(getAddTreasureChests(), treasureChestsTable))) {
+                    statement.setInt(1, user.getDatabaseId());
+                    statement.setString(2, treasureChest.getKey());
+                    statement.setInt(3, amount);
+                    int rowsAffected = statement.executeUpdate();
+
+                    if (rowsAffected > 0) {
+                        try (PreparedStatement selectStatement = connection.prepareStatement(String.format(SQL_GET_TREASURE_CHEST, treasureChestsTable))) {
+                            selectStatement.setInt(1, user.getDatabaseId());
+                            selectStatement.setString(2, treasureChest.getKey());
+
+                            try (ResultSet resultSet = selectStatement.executeQuery()) {
+                                if (resultSet.next()) {
+                                    int newAmount = resultSet.getInt("amount");
+                                    return BooleanIntPair.of(true, newAmount);
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                plugin.getLogger().log(Level.WARNING, "Failed to add treasure chests for player " + user + ".", e);
+            }
+            return BooleanIntPair.of(false, user.getTreasureChests(treasureChest));
+        }).thenApplyAsync(result -> {
+            if (result.leftBoolean()) {
+                user.setTreasureChests(treasureChest, result.rightInt());
+            }
+            return result;
+        }, plugin.getSyncExecutor());
+    }
+
+    @Override
+    public CompletableFuture<BooleanIntPair> removeTreasureChestsAsyncImpl(User user, TreasureChest treasureChest, int amount) {
+        return CompletableFuture.supplyAsync(() -> {
+            try (Connection connection = connectionProvider.getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement(String.format(SQL_REMOVE_TREASURE_CHESTS, treasureChestsTable))) {
+                    statement.setInt(1, amount);
+                    statement.setInt(2, user.getDatabaseId());
+                    statement.setString(3, treasureChest.getKey());
+                    statement.setInt(4, amount);
+                    int rowsAffected = statement.executeUpdate();
+
+                    if (rowsAffected > 0) {
+                        try (PreparedStatement selectStatement = connection.prepareStatement(String.format(SQL_GET_TREASURE_CHEST, treasureChestsTable))) {
+                            selectStatement.setInt(1, user.getDatabaseId());
+                            selectStatement.setString(2, treasureChest.getKey());
+
+                            try (ResultSet resultSet = selectStatement.executeQuery()) {
+                                if (resultSet.next()) {
+                                    int newAmount = resultSet.getInt("amount");
+                                    return BooleanIntPair.of(true, newAmount);
+                                } else {
+                                    return BooleanIntPair.of(true, 0);
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                plugin.getLogger().log(Level.WARNING, "Failed to remove treasure chests for player " + user + ".", e);
+            }
+            return BooleanIntPair.of(false, user.getTreasureChests(treasureChest));
+        }).thenApplyAsync(result -> {
+            if (result.leftBoolean()) {
+                user.setTreasureChests(treasureChest, result.rightInt());
+            }
+            return result;
+        }, plugin.getSyncExecutor());
+    }
+
+    @Override
+    public CompletableFuture<BooleanIntPair> setTreasureChestsAsyncImpl(User user, TreasureChest treasureChest, int amount) {
+        return CompletableFuture.supplyAsync(() -> {
+            if (amount < 0) {
+                return BooleanIntPair.of(false, user.getTreasureChests(treasureChest));
+            }
+
+            try (Connection connection = connectionProvider.getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement(String.format(getSetTreasureChests(), treasureChestsTable))) {
+                    statement.setInt(1, user.getDatabaseId());
+                    statement.setString(2, treasureChest.getKey());
+                    statement.setInt(3, amount);
+                    int rowsAffected = statement.executeUpdate();
+
+                    if (rowsAffected > 0) {
+                        try (PreparedStatement selectStatement = connection.prepareStatement(String.format(SQL_GET_TREASURE_CHEST, treasureChestsTable))) {
+                            selectStatement.setInt(1, user.getDatabaseId());
+                            selectStatement.setString(2, treasureChest.getKey());
+
+                            try (ResultSet resultSet = selectStatement.executeQuery()) {
+                                if (resultSet.next()) {
+                                    int newAmount = resultSet.getInt("amount");
+                                    return BooleanIntPair.of(true, newAmount);
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                plugin.getLogger().log(Level.WARNING, "Failed to set treasure chests for player " + user + ".", e);
+            }
+            return BooleanIntPair.of(false, user.getTreasureChests(treasureChest));
+        }).thenApplyAsync(result -> {
+            if (result.leftBoolean()) {
+                user.setTreasureChests(treasureChest, result.rightInt());
             }
             return result;
         }, plugin.getSyncExecutor());

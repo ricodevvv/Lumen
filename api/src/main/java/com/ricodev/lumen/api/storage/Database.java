@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import com.ricodev.lumen.api.cosmetic.CosmeticType;
 import com.ricodev.lumen.api.cosmetic.gadget.GadgetType;
 import com.ricodev.lumen.api.cosmetic.registry.CosmeticCategory;
+import com.ricodev.lumen.api.treasure.TreasureChest;
 import com.ricodev.lumen.api.user.User;
 
 import java.util.UUID;
@@ -286,6 +287,41 @@ public interface Database {
      * @return a completableFuture containing a pair: success status and new ammo count from database
      */
     CompletableFuture<BooleanIntPair> setGadgetAmmoAsync(User user, GadgetType gadgetType, int amount);
+
+    /**
+     * Adds treasure chests to a user's inventory asynchronously.
+     * On success, the user's in-memory key count is automatically updated on the main thread.
+     *
+     * @param user          the user
+     * @param treasureChest the treasure chest type
+     * @param amount        the amount to add
+     * @return a completableFuture containing a pair: success status and new key count from database
+     */
+    CompletableFuture<BooleanIntPair> addTreasureChestsAsync(User user, TreasureChest treasureChest, int amount);
+
+    /**
+     * Removes treasure chests from a user's inventory asynchronously.
+     * This operation only succeeds if the user has sufficient keys.
+     * On success, the user's in-memory key count is automatically updated on the main thread.
+     *
+     * @param user          the user
+     * @param treasureChest the treasure chest type
+     * @param amount        the amount to remove
+     * @return a completableFuture containing a pair: success status and new key count from database
+     */
+    CompletableFuture<BooleanIntPair> removeTreasureChestsAsync(User user, TreasureChest treasureChest, int amount);
+
+    /**
+     * Sets a user's treasure chest count asynchronously.
+     * This operation fails if the amount is negative.
+     * On success, the user's in-memory key count is automatically updated on the main thread.
+     *
+     * @param user          the user
+     * @param treasureChest the treasure chest type
+     * @param amount        the new key count (must be non-negative)
+     * @return a completableFuture containing a pair: success status and new key count from database
+     */
+    CompletableFuture<BooleanIntPair> setTreasureChestsAsync(User user, TreasureChest treasureChest, int amount);
 
     /**
      * Shuts down the database connection and releases resources.

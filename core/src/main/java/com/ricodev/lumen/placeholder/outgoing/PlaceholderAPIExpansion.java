@@ -17,6 +17,8 @@
  */
 package com.ricodev.lumen.placeholder.outgoing;
 
+import com.ricodev.lumen.api.treasure.TreasureChest;
+
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -81,6 +83,20 @@ public class PlaceholderAPIExpansion extends PlaceholderExpansion {
                         return "0/" + total;
                     }
                     return category.getUnlockedCosmetics(player) + "/" + total;
+                }
+            }
+        } else if (identifier.contains("treasures_")) {
+            for (TreasureChest treasureChest : plugin.getTreasureChestManager().getTreasureChests()) {
+                if (identifier.equals("treasures_" + treasureChest.getKey())) {
+                    if (offlinePlayer == null) {
+                        return "0";
+                    }
+                    User user = plugin.getUserManager().getConnected(offlinePlayer.getUniqueId());
+
+                    if (user == null) {
+                        return "0";
+                    }
+                    return String.valueOf(user.getTreasureChests(treasureChest));
                 }
             }
         }

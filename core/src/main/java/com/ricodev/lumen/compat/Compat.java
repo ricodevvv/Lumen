@@ -129,6 +129,25 @@ public interface Compat {
     org.bukkit.entity.FallingBlock spawnFallingBlock(Location location, XMaterial material);
 
     /**
+     * Places a structure block, with all its states on 1.13+ and just the material before that.
+     */
+    void setBlock(Block block, com.ricodev.lumen.api.util.structure.StructureBlock data);
+
+    void sendBlockChange(Player player, Location location, com.ricodev.lumen.api.util.structure.StructureBlock data);
+
+    ItemStack blockItem(com.ricodev.lumen.api.util.structure.StructureBlock data);
+
+    /**
+     * The block as a modern block data string, for saving structures.
+     */
+    String blockDataString(Block block);
+
+    /**
+     * Opens or closes a chest lid for everyone nearby, 1.16+ only.
+     */
+    void playChestAnimation(Block block, boolean open);
+
+    /**
      * The grey cooldown sweep over an item in the hotbar, 1.11.2+ only.
      */
     void setItemCooldown(Player player, org.bukkit.Material material, int ticks);

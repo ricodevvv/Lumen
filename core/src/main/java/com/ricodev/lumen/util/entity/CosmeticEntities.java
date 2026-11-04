@@ -52,7 +52,7 @@ public final class CosmeticEntities {
     /**
      * An invisible armor stand wearing the item, the stand-in for block and item displays.
      */
-    public static CosmeticEntityImpl createItemHolder(World world, ItemStack itemStack, @Nullable EntityTracker tracker) {
+    public static CosmeticEntityImpl createItemHolder(World world, @Nullable ItemStack itemStack, @Nullable EntityTracker tracker) {
         return new CosmeticEntityImpl(world, EntityType.ARMOR_STAND, tracker, false).asItemHolder(itemStack);
     }
 

@@ -21,6 +21,7 @@ import com.ricodev.lumen.api.util.BooleanIntPair;
 import com.ricodev.lumen.LumenPlugin;
 import com.ricodev.lumen.api.cosmetic.gadget.GadgetType;
 import com.ricodev.lumen.api.storage.Database;
+import com.ricodev.lumen.api.treasure.TreasureChest;
 import com.ricodev.lumen.api.user.User;
 
 import java.util.concurrent.CompletableFuture;
@@ -44,6 +45,12 @@ public abstract class DatabaseImpl implements Database {
     protected abstract CompletableFuture<BooleanIntPair> removeGadgetAmmoAsyncImpl(User user, GadgetType gadgetType, int amount);
 
     protected abstract CompletableFuture<BooleanIntPair> setGadgetAmmoAsyncImpl(User user, GadgetType gadgetType, int amount);
+
+    protected abstract CompletableFuture<BooleanIntPair> addTreasureChestsAsyncImpl(User user, TreasureChest treasureChest, int amount);
+
+    protected abstract CompletableFuture<BooleanIntPair> removeTreasureChestsAsyncImpl(User user, TreasureChest treasureChest, int amount);
+
+    protected abstract CompletableFuture<BooleanIntPair> setTreasureChestsAsyncImpl(User user, TreasureChest treasureChest, int amount);
 
     @Override
     public CompletableFuture<BooleanIntPair> addCoinsAsync(User user, int amount) {
@@ -75,4 +82,18 @@ public abstract class DatabaseImpl implements Database {
         return setGadgetAmmoAsyncImpl(user, gadgetType, amount);
     }
 
+    @Override
+    public CompletableFuture<BooleanIntPair> addTreasureChestsAsync(User user, TreasureChest treasureChest, int amount) {
+        return addTreasureChestsAsyncImpl(user, treasureChest, amount);
+    }
+
+    @Override
+    public CompletableFuture<BooleanIntPair> removeTreasureChestsAsync(User user, TreasureChest treasureChest, int amount) {
+        return removeTreasureChestsAsyncImpl(user, treasureChest, amount);
+    }
+
+    @Override
+    public CompletableFuture<BooleanIntPair> setTreasureChestsAsync(User user, TreasureChest treasureChest, int amount) {
+        return setTreasureChestsAsyncImpl(user, treasureChest, amount);
+    }
 }

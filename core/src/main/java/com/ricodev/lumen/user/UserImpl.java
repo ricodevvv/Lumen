@@ -33,6 +33,8 @@ import com.ricodev.lumen.api.cosmetic.gadget.GadgetType;
 import com.ricodev.lumen.api.cosmetic.registry.CosmeticCategory;
 import com.ricodev.lumen.api.locale.Translatable;
 import com.ricodev.lumen.api.user.User;
+import com.ricodev.lumen.api.treasure.TreasureChest;
+import com.ricodev.lumen.api.treasure.TreasureChestPlatform;
 import com.ricodev.lumen.api.cosmetic.morph.Morph;
 import com.ricodev.lumen.api.entity.CosmeticEntity;
 
@@ -54,6 +56,8 @@ public class UserImpl implements User {
     private boolean selfViewMorph;
     private boolean selfViewStatus;
 
+    private final Map<TreasureChest, Integer> treasureChests = new HashMap<>();
+    private TreasureChestPlatform currentPlatform;
     private long fallDamageProtection;
 
     private final Map<CosmeticCategory<?, ?, ?>, Cosmetic<?, ?>> cosmetics = new HashMap<>();
@@ -336,5 +340,41 @@ public class UserImpl implements User {
     @Override
     public String toString() {
         return getDebugName();
+    }
+
+    @Override
+    public boolean isOpeningTreasure() {
+        return currentPlatform != null;
+    }
+
+    @Override
+    public TreasureChestPlatform getCurrentPlatform() {
+        return currentPlatform;
+    }
+
+    @Override
+    public void setCurrentPlatform(TreasureChestPlatform platform) {
+        currentPlatform = platform;
+    }
+
+    @Override
+    public boolean hasTreasureChests(TreasureChest treasureChest, int amount) {
+        return getTreasureChests(treasureChest) >= amount;
+    }
+
+    @Override
+    public int getTreasureChests(TreasureChest treasureChest) {
+        Integer amount = treasureChests.get(treasureChest);
+        return amount == null ? 0 : amount;
+    }
+
+    @Override
+    public void setTreasureChests(TreasureChest treasureChest, int amount) {
+        treasureChests.put(treasureChest, amount);
+    }
+
+    @Override
+    public Map<TreasureChest, Integer> getTreasureChests() {
+        return treasureChests;
     }
 }

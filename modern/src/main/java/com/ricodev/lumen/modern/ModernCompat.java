@@ -341,6 +341,50 @@ public class ModernCompat extends LegacyCompat {
         return super.spawnFallingBlock(location, material);
     }
 
+    private static org.bukkit.block.data.@Nullable BlockData blockData(com.ricodev.lumen.api.util.structure.StructureBlock data) {
+        try {
+            return org.bukkit.Bukkit.createBlockData(data.getData());
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public void setBlock(Block block, com.ricodev.lumen.api.util.structure.StructureBlock data) {
+        org.bukkit.block.data.BlockData blockData = ServerVersion.atLeast(13) ? blockData(data) : null;
+
+        if (blockData != null) {
+            block.setBlockData(blockData, false);
+        } else {
+            super.setBlock(block, data);
+        }
+    }
+
+    @Override
+    public void sendBlockChange(Player player, Location location, com.ricodev.lumen.api.util.structure.StructureBlock data) {
+        org.bukkit.block.data.BlockData blockData = ServerVersion.atLeast(13) ? blockData(data) : null;
+
+        if (blockData != null) {
+            player.sendBlockChange(location, blockData);
+        } else {
+            super.sendBlockChange(player, location, data);
+        }
+    }
+
+    @Override
+    public String blockDataString(Block block) {
+        return ServerVersion.atLeast(13) ? block.getBlockData().getAsString() : super.blockDataString(block);
+    }
+
+    @Override
+    public void playChestAnimation(Block block, boolean open) {
+        try {
+            Object state = block.getState();
+            state.getClass().getMethod(open ? "open" : "close").invoke(state);
+        } catch (ReflectiveOperationException | RuntimeException ignored) {
+        }
+    }
+
     @Override
     public int maxInventoryTitleLength() {
         return ServerVersion.atLeast(13) ? 256 : 32;

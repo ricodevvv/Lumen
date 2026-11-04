@@ -52,6 +52,10 @@ import com.ricodev.lumen.menu.MenuManagerImpl;
 import com.ricodev.lumen.placeholder.PlaceholderManager;
 import com.ricodev.lumen.platform.LegacyAdapter;
 import com.ricodev.lumen.storage.DatabaseTypeProvider;
+import com.ricodev.lumen.api.treasure.TreasureChestPlatform;
+import com.ricodev.lumen.api.treasure.animation.TreasureChestAnimationRegistry;
+import com.ricodev.lumen.treasure.TreasureChestManagerImpl;
+import com.ricodev.lumen.treasure.animation.TreasureChestAnimationRegistryImpl;
 import com.ricodev.lumen.user.UserManagerImpl;
 import com.ricodev.lumen.util.ResourceExporter;
 import com.ricodev.lumen.util.block.FakeBlockManager;
@@ -77,6 +81,8 @@ public class LumenPlugin extends JavaPlugin implements Lumen {
     private CosmeticRarityRegistryImpl cosmeticRarityRegistry;
     private CategoryRegistriesImpl categoryRegistries;
     private UserManagerImpl userManager;
+    private TreasureChestAnimationRegistry treasureChestAnimationRegistry;
+    private TreasureChestManagerImpl treasureChestManager;
     private MenuManagerImpl menuManager;
     private FakeBlockManager fakeBlockManager;
     private EconomyManagerImpl economyManager;
@@ -103,6 +109,8 @@ public class LumenPlugin extends JavaPlugin implements Lumen {
         cosmeticRarityRegistry = new CosmeticRarityRegistryImpl(this);
         categoryRegistries = new CategoryRegistriesImpl(this);
         userManager = new UserManagerImpl(this);
+        treasureChestAnimationRegistry = new TreasureChestAnimationRegistryImpl();
+        treasureChestManager = new TreasureChestManagerImpl(this);
         menuManager = new MenuManagerImpl(this);
         fakeBlockManager = new FakeBlockManager(this);
         economyManager = new EconomyManagerImpl(this);
@@ -121,6 +129,7 @@ public class LumenPlugin extends JavaPlugin implements Lumen {
         hookPlugins();
 
         com.github.retrooper.packetevents.PacketEvents.getAPI().getEventManager().registerListener(new com.ricodev.lumen.util.entity.RideInput());
+        getServer().getScheduler().runTask(this, treasureChestManager::loadPlatforms);
         userManager.loadOnlinePlayers();
         LumenProvider.register(this);
 
@@ -133,6 +142,7 @@ public class LumenPlugin extends JavaPlugin implements Lumen {
 
     private void registerListeners() {
         userManager.registerListeners();
+        treasureChestManager.registerListeners();
         menuManager.registerListeners();
 
         registerListeners(new BlockListener(),
@@ -155,6 +165,11 @@ public class LumenPlugin extends JavaPlugin implements Lumen {
         }
         if (database != null) {
             database.shutdown();
+        }
+        if (treasureChestManager != null) {
+            for (TreasureChestPlatform platform : treasureChestManager.getPlatforms()) {
+                platform.hideDisplay();
+            }
         }
         if (fakeBlockManager != null) {
             fakeBlockManager.shutdown();
@@ -247,6 +262,16 @@ public class LumenPlugin extends JavaPlugin implements Lumen {
     @Override
     public UserManagerImpl getUserManager() {
         return userManager;
+    }
+
+    @Override
+    public TreasureChestAnimationRegistry getTreasureChestAnimationRegistry() {
+        return treasureChestAnimationRegistry;
+    }
+
+    @Override
+    public TreasureChestManagerImpl getTreasureChestManager() {
+        return treasureChestManager;
     }
 
     @Override

@@ -381,9 +381,12 @@ public class CosmeticEntityImpl implements CosmeticEntity {
      * Makes this armor stand an invisible holder for one item on its head, which is what block
      * and item display entities turn into on versions that don't have them.
      */
-    public CosmeticEntityImpl asItemHolder(ItemStack itemStack) {
+    public CosmeticEntityImpl asItemHolder(@Nullable ItemStack itemStack) {
         itemHolder = true;
-        setHelmet(itemStack);
+
+        if (itemStack != null) {
+            setHelmet(itemStack);
+        }
         return this;
     }
 

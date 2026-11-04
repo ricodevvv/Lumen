@@ -17,6 +17,26 @@
  */
 package com.ricodev.lumen.command.commands;
 
+import com.ricodev.lumen.command.commands.lumen.platform.TeleportCommand;
+
+import com.ricodev.lumen.command.commands.lumen.platform.ListCommand;
+
+import com.ricodev.lumen.command.commands.lumen.platform.DeleteCommand;
+
+import com.ricodev.lumen.command.commands.lumen.platform.CreateCommand;
+
+import com.ricodev.lumen.command.commands.lumen.StructureCommand;
+
+import com.ricodev.lumen.command.commands.lumen.remove.RemoveTreasureChestCommand;
+
+import com.ricodev.lumen.command.commands.lumen.set.SetTreasureChestCommand;
+
+import com.ricodev.lumen.command.commands.lumen.addall.AddAllTreasureChestCommand;
+
+import com.ricodev.lumen.command.commands.lumen.get.GetTreasureChestCommand;
+
+import com.ricodev.lumen.command.commands.lumen.add.AddTreasureChestCommand;
+
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -48,19 +68,24 @@ public class LumenCommand extends SimpleCommand<CommandSender> {
                 new AddAmmoCommand(plugin),
                 new AddCoinsCommand(plugin),
                 new AddCosmeticCommand(plugin),
+                new AddTreasureChestCommand(plugin),
 
                 new GetAmmoCommand(plugin),
                 new GetCoinsCommand(plugin),
+                new GetTreasureChestCommand(plugin),
 
                 new AddAllAmmoCommand(plugin),
                 new AddAllCoinsCommand(plugin),
                 new AddAllCosmeticCommand(plugin),
+                new AddAllTreasureChestCommand(plugin),
 
                 new SetAmmoCommand(plugin),
                 new SetCoinsCommand(plugin),
+                new SetTreasureChestCommand(plugin),
 
                 new RemoveAmmoCommand(plugin),
                 new RemoveCoinsCommand(plugin),
+                new RemoveTreasureChestCommand(plugin),
 
                 new EquipCommand(plugin),
                 new InfoCommand(plugin),
@@ -68,8 +93,13 @@ public class LumenCommand extends SimpleCommand<CommandSender> {
                 new MenuCommand(plugin),
                 new PermissionCommand(plugin),
                 new ReloadCommand(plugin),
+                new StructureCommand(plugin),
                 new UnequipAllPlayersCommand(plugin),
-                new UnequipCommand(plugin)
+                new UnequipCommand(plugin),
+                new CreateCommand(plugin),
+                new DeleteCommand(plugin),
+                new ListCommand(plugin),
+                new TeleportCommand(plugin)
         );
     }
 

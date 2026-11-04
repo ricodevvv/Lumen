@@ -26,6 +26,8 @@ import com.ricodev.lumen.api.locale.LanguageManager;
 import com.ricodev.lumen.api.menu.MenuManager;
 import com.ricodev.lumen.api.platform.PlatformAdapter;
 import com.ricodev.lumen.api.storage.Database;
+import com.ricodev.lumen.api.treasure.TreasureChestManager;
+import com.ricodev.lumen.api.treasure.animation.TreasureChestAnimationRegistry;
 import com.ricodev.lumen.api.user.UserManager;
 
 import java.util.concurrent.Executor;
@@ -100,6 +102,20 @@ public interface Lumen {
      *
      * @return the economy manager
      */
+    /**
+     * Gets the treasure chest animation registry.
+     *
+     * @return the animation registry
+     */
+    TreasureChestAnimationRegistry getTreasureChestAnimationRegistry();
+
+    /**
+     * Gets the treasure chest manager, which handles chests and their platforms.
+     *
+     * @return the treasure chest manager
+     */
+    TreasureChestManager getTreasureChestManager();
+
     EconomyManager getEconomyManager();
 
     /**

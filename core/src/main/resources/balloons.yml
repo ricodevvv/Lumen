@@ -68,6 +68,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   bee:
     enabled: true
@@ -80,6 +84,10 @@ cosmetics:
     entity: "BEE"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   belgium:
     enabled: true
@@ -92,6 +100,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   bunny:
     enabled: true
@@ -104,6 +116,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   burger:
     enabled: true
@@ -116,6 +132,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   cake:
     enabled: true
@@ -128,6 +148,10 @@ cosmetics:
     entity: "BLOCK_DISPLAY"
     baby: false
     scale: 0.75
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   calf:
     enabled: true
@@ -140,6 +164,10 @@ cosmetics:
     entity: "COW"
     baby: true
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   canada:
     enabled: true
@@ -152,6 +180,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   china:
     enabled: true
@@ -164,6 +196,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   denmark:
     enabled: true
@@ -176,6 +212,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   disco:
     enabled: true
@@ -188,6 +228,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 0.5
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   earth:
     enabled: true
@@ -200,6 +244,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   egg:
     enabled: true
@@ -212,6 +260,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 0.5
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   emerald:
     enabled: true
@@ -224,6 +276,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 0.5
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   explosive:
     enabled: true
@@ -236,6 +292,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 0.5
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   finland:
     enabled: true
@@ -248,6 +308,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   france:
     enabled: true
@@ -260,6 +324,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   germany:
     enabled: true
@@ -272,6 +340,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   ghost:
     enabled: true
@@ -284,6 +356,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   greece:
     enabled: true
@@ -296,6 +372,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   guardian:
     enabled: true
@@ -308,6 +388,10 @@ cosmetics:
     entity: "GUARDIAN"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   italy:
     enabled: true
@@ -320,6 +404,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   japan:
     enabled: true
@@ -332,6 +420,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   kitten:
     enabled: true
@@ -344,6 +436,10 @@ cosmetics:
     entity: "CAT"
     baby: true
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   mini_pig:
     enabled: true
@@ -356,6 +452,10 @@ cosmetics:
     entity: "PIG"
     baby: true
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   money_bag:
     enabled: true
@@ -368,6 +468,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   mouse:
     enabled: true
@@ -380,6 +484,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   mushroom_cow:
     enabled: true
@@ -392,6 +500,10 @@ cosmetics:
     entity: "MUSHROOM_COW"
     baby: true
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   norway:
     enabled: true
@@ -404,6 +516,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   pigeon:
     enabled: true
@@ -416,6 +532,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   poland:
     enabled: true
@@ -428,6 +548,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   police_car:
     enabled: true
@@ -440,6 +564,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   portugal:
     enabled: true
@@ -452,6 +580,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   present:
     enabled: true
@@ -464,6 +596,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   pride:
     enabled: true
@@ -476,6 +612,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   pumpkin:
     enabled: true
@@ -488,6 +628,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 0.5
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   puppy:
     enabled: true
@@ -500,6 +644,10 @@ cosmetics:
     entity: "WOLF"
     baby: true
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   rabbit:
     enabled: true
@@ -512,6 +660,10 @@ cosmetics:
     entity: "RABBIT"
     baby: true
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   soccer_ball:
     enabled: true
@@ -524,6 +676,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   spain:
     enabled: true
@@ -536,6 +692,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   sun:
     enabled: true
@@ -548,6 +708,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   sweden:
     enabled: true
@@ -560,6 +724,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   tiny_villager:
     enabled: true
@@ -572,6 +740,10 @@ cosmetics:
     entity: "VILLAGER"
     baby: true
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   truck:
     enabled: true
@@ -584,6 +756,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   turkey:
     enabled: true
@@ -596,6 +772,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   united_kingdom:
     enabled: true
@@ -608,6 +788,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   united_states_of_america:
     enabled: true
@@ -620,6 +804,10 @@ cosmetics:
     entity: "ITEM_DISPLAY"
     baby: false
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   zombie:
     enabled: true
@@ -632,6 +820,10 @@ cosmetics:
     entity: "ZOMBIE"
     baby: true
     scale: 1.0
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
 # Do not edit this!
 config_version: 1

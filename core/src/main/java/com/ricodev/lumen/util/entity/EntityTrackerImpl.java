@@ -80,6 +80,17 @@ public class EntityTrackerImpl implements EntityTracker {
         entities.clear();
     }
 
+    /**
+     * Despawns everything but keeps the group, so {@link #startTracking()} brings it back.
+     */
+    public void stopTracking() {
+        tracking = false;
+
+        for (CosmeticEntity entity : getEntities()) {
+            ((CosmeticEntityImpl) entity).despawn();
+        }
+    }
+
     @Override
     public void destroyAfter(int ticks) {
         LumenPlugin plugin = LumenPlugin.getPlugin();

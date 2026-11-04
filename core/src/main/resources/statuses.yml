@@ -83,6 +83,10 @@ cosmetics:
     item: "minecraft:name_tag"
     count: 1
     refresh_interval: -1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   coins:
     enabled: true
@@ -93,6 +97,10 @@ cosmetics:
     item: "minecraft:name_tag"
     count: 1
     refresh_interval: 120
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   do_not_disturb:
     enabled: true
@@ -103,6 +111,10 @@ cosmetics:
     item: "minecraft:name_tag"
     count: 1
     refresh_interval: -1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   just_chilling:
     enabled: true
@@ -113,6 +125,10 @@ cosmetics:
     item: "minecraft:name_tag"
     count: 1
     refresh_interval: -1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   looking_to_chat:
     enabled: true
@@ -123,6 +139,10 @@ cosmetics:
     item: "minecraft:name_tag"
     count: 1
     refresh_interval: -1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   looking_to_team_up:
     enabled: true
@@ -133,6 +153,10 @@ cosmetics:
     item: "minecraft:name_tag"
     count: 1
     refresh_interval: -1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   ping:
     enabled: true
@@ -143,6 +167,10 @@ cosmetics:
     item: "minecraft:name_tag"
     count: 1
     refresh_interval: 120
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
 # Do not edit this!
 config_version: 1

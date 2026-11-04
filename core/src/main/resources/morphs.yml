@@ -76,6 +76,10 @@ cosmetics:
     cooldown: 1.0
     item: "minecraft:bat_spawn_egg"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   blaze:
     enabled: true
@@ -87,6 +91,10 @@ cosmetics:
     cooldown: 5.0
     item: "minecraft:blaze_powder"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   block:
     enabled: true
@@ -98,6 +106,10 @@ cosmetics:
     cooldown: 5.0
     item: "minecraft:emerald_block"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   bunny:
     enabled: true
@@ -109,6 +121,10 @@ cosmetics:
     cooldown: 0.0
     item: "minecraft:egg"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   cat:
     enabled: true
@@ -120,6 +136,10 @@ cosmetics:
     cooldown: 2.0
     item: "minecraft:tropical_fish"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   cave_spider:
     enabled: true
@@ -131,6 +151,10 @@ cosmetics:
     cooldown: 10.0
     item: "minecraft:spider_eye"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   chicken:
     enabled: true
@@ -142,6 +166,10 @@ cosmetics:
     cooldown: 2.0
     item: "minecraft:feather"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   cow:
     enabled: true
@@ -153,6 +181,10 @@ cosmetics:
     cooldown: 2.0
     item: "minecraft:leather"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   creeper:
     enabled: true
@@ -164,6 +196,10 @@ cosmetics:
     cooldown: 20.0
     item: "minecraft:creeper_head[!minecraft:rarity]"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   dog:
     enabled: true
@@ -175,6 +211,10 @@ cosmetics:
     cooldown: 2.0
     item: "minecraft:bone"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   donkey:
     enabled: true
@@ -186,6 +226,10 @@ cosmetics:
     cooldown: 2.0
     item: "minecraft:lead"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   elder_guardian:
     enabled: true
@@ -197,6 +241,10 @@ cosmetics:
     cooldown: 30.0
     item: "minecraft:prismarine_shard"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   enderman:
     enabled: true
@@ -208,6 +256,10 @@ cosmetics:
     cooldown: 8.0
     item: "minecraft:ender_pearl"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   iron_golem:
     enabled: true
@@ -219,6 +271,10 @@ cosmetics:
     cooldown: 15.0
     item: "minecraft:iron_block"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   magma_cube:
     enabled: true
@@ -230,6 +286,10 @@ cosmetics:
     cooldown: 0.0
     item: "minecraft:netherrack"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   mushroom_cow:
     enabled: true
@@ -241,6 +301,10 @@ cosmetics:
     cooldown: 2.0
     item: "minecraft:red_mushroom"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   olaf:
     enabled: true
@@ -252,6 +316,10 @@ cosmetics:
     cooldown: 8.0
     item: "minecraft:snowball"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   pig:
     enabled: true
@@ -263,6 +331,10 @@ cosmetics:
     cooldown: 2.0
     item: "minecraft:porkchop"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   piglin:
     enabled: true
@@ -274,6 +346,10 @@ cosmetics:
     cooldown: 2.0
     item: "minecraft:golden_sword"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   sheep:
     enabled: true
@@ -285,6 +361,10 @@ cosmetics:
     cooldown: 2.0
     item: "minecraft:white_wool"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   skeleton:
     enabled: true
@@ -296,6 +376,10 @@ cosmetics:
     cooldown: 10.0
     item: "minecraft:arrow"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   slime:
     enabled: true
@@ -307,6 +391,10 @@ cosmetics:
     cooldown: 10.0
     item: "minecraft:slime_block"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   spider:
     enabled: true
@@ -318,6 +406,10 @@ cosmetics:
     cooldown: 20.0
     item: "minecraft:cobweb"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   squid:
     enabled: true
@@ -329,6 +421,10 @@ cosmetics:
     cooldown: 20.0
     item: "minecraft:ink_sac"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   villager:
     enabled: true
@@ -340,6 +436,10 @@ cosmetics:
     cooldown: 2.0
     item: "minecraft:emerald"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   witch:
     enabled: true
@@ -351,6 +451,10 @@ cosmetics:
     cooldown: 5.0
     item: "minecraft:potion[!minecraft:potion_contents]"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   wither:
     enabled: true
@@ -362,6 +466,10 @@ cosmetics:
     cooldown: 12.0
     item: "minecraft:wither_skeleton_skull[!minecraft:rarity]"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   zombie:
     enabled: true
@@ -373,6 +481,10 @@ cosmetics:
     cooldown: 20.0
     item: "minecraft:zombie_head[!minecraft:rarity]"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
 # Do not edit this!
 config_version: 1

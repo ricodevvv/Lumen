@@ -27,6 +27,8 @@ import com.ricodev.lumen.api.cosmetic.Cosmetic;
 import com.ricodev.lumen.api.cosmetic.gadget.GadgetType;
 import com.ricodev.lumen.api.cosmetic.registry.CosmeticCategory;
 import com.ricodev.lumen.api.locale.Translator;
+import com.ricodev.lumen.api.treasure.TreasureChest;
+import com.ricodev.lumen.api.treasure.TreasureChestPlatform;
 
 import java.util.Map;
 import java.util.UUID;
@@ -40,6 +42,7 @@ import java.util.UUID;
  * @see UserManager
  * @see Cosmetic
  * @see CosmeticCategory
+ * @see TreasureChest
  */
 public interface User extends Translator {
 
@@ -260,6 +263,63 @@ public interface User extends Translator {
      * @param saveToDatabase {@code true} to update the database
      */
     void clearAllCosmetics(boolean silent, boolean saveToDatabase);
+
+    /**
+     * Checks whether the player is currently opening a treasure chest.
+     *
+     * @return {@code true} if the player is in a treasure-opening session
+     */
+    boolean isOpeningTreasure();
+
+    /**
+     * Gets the treasure platform currently assigned to this user.
+     *
+     * @return the current {@link TreasureChestPlatform}, or {@code null} if none
+     */
+    @Nullable
+    TreasureChestPlatform getCurrentPlatform();
+
+    /**
+     * Sets the current treasure platform assigned to this user.
+     *
+     * @param platform the treasure platform to assign
+     */
+    @ApiStatus.Internal
+    void setCurrentPlatform(TreasureChestPlatform platform);
+
+    /**
+     * Checks whether the player has at least the specified number of a given treasure chest.
+     *
+     * @param treasureChest the treasure chest type
+     * @param amount        the required amount
+     * @return {@code true} if the player has enough chests
+     */
+    boolean hasTreasureChests(TreasureChest treasureChest, int amount);
+
+    /**
+     * Gets how many of a specific treasure chest the player currently owns.
+     *
+     * @param treasureChest the treasure chest type
+     * @return the number of chests owned
+     */
+    int getTreasureChests(TreasureChest treasureChest);
+
+    /**
+     * Updates the number of a specific treasure chest owned by the player.
+     *
+     * @param treasureChest the treasure chest type
+     * @param amount        the new amount
+     */
+    @ApiStatus.Internal
+    void setTreasureChests(TreasureChest treasureChest, int amount);
+
+    /**
+     * Gets a map of all treasure chest types owned by the player.
+     *
+     * @return a map of {@link TreasureChest} to quantity
+     */
+    @ApiStatus.Internal
+    Map<TreasureChest, Integer> getTreasureChests();
 
     /**
      * Checks whether a gadget is currently on cooldown for this player.

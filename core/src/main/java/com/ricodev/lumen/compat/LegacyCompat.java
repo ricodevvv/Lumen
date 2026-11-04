@@ -388,6 +388,36 @@ public class LegacyCompat implements Compat {
         return location.getWorld().spawnFallingBlock(location, material.parseMaterial(), material.getData());
     }
 
+    protected static XMaterial material(com.ricodev.lumen.api.util.structure.StructureBlock data) {
+        XMaterial material = XMaterial.matchXMaterial(data.getMaterial()).orElse(null);
+        return material != null && material.isSupported() ? material : XMaterial.STONE;
+    }
+
+    @Override
+    public void setBlock(Block block, com.ricodev.lumen.api.util.structure.StructureBlock data) {
+        com.cryptomorin.xseries.XBlock.setType(block, material(data), false);
+    }
+
+    @Override
+    public void sendBlockChange(Player player, Location location, com.ricodev.lumen.api.util.structure.StructureBlock data) {
+        sendBlockChange(player, location, material(data));
+    }
+
+    @Override
+    public ItemStack blockItem(com.ricodev.lumen.api.util.structure.StructureBlock data) {
+        ItemStack item = material(data).parseItem();
+        return item != null ? item : XMaterial.STONE.parseItem();
+    }
+
+    @Override
+    public String blockDataString(Block block) {
+        return "minecraft:" + XMaterial.matchXMaterial(block.getType()).name().toLowerCase(java.util.Locale.ROOT);
+    }
+
+    @Override
+    public void playChestAnimation(Block block, boolean open) {
+    }
+
     @Override
     public int maxInventoryTitleLength() {
         return 32;

@@ -20,6 +20,8 @@ package com.ricodev.lumen.api.cosmetic.gadget;
 import org.jetbrains.annotations.Nullable;
 import com.ricodev.lumen.api.cosmetic.CosmeticRarity;
 import com.ricodev.lumen.api.cosmetic.CosmeticType;
+import com.ricodev.lumen.api.treasure.loot.number.IntProvider;
+import com.ricodev.lumen.api.util.structure.StructureData;
 
 import java.util.Map;
 
@@ -62,6 +64,15 @@ public interface GadgetType extends CosmeticType<GadgetType, GadgetBehavior> {
     }
 
     /**
+     * Gets the structure data for this gadget.
+     * Some gadgets spawn structures when activated.
+     *
+     * @return the structure data, or null if this gadget doesn't use structures
+     */
+    @Nullable
+    StructureData getStructure();
+
+    /**
      * Gets the ammo rarity for this gadget.
      *
      * @return the ammo rarity
@@ -101,6 +112,17 @@ public interface GadgetType extends CosmeticType<GadgetType, GadgetBehavior> {
     int getAmmoCost();
 
     /**
+     * Gets the ammunition amount providers for each treasure chest type.
+     * <p>
+     * When this gadget is looted from a treasure chest, the corresponding IntProvider
+     * determines how much ammo is awarded alongside it. Only treasure chest types present
+     * in this map can contain this gadget as loot.
+     *
+     * @return map of chest type to ammo provider
+     */
+    Map<String, IntProvider> getAmmoLoot();
+
+    /**
      * Builder interface for constructing gadget type instances.
      */
     interface Builder extends CosmeticType.Builder<GadgetType, GadgetBehavior, Builder> {
@@ -120,6 +142,14 @@ public interface GadgetType extends CosmeticType<GadgetType, GadgetBehavior> {
          * @return this builder for method chaining
          */
         Builder duration(double duration);
+
+        /**
+         * Sets the structure data for this gadget.
+         *
+         * @param structure the structure data, or null if not applicable
+         * @return this builder for method chaining
+         */
+        Builder structure(StructureData structure);
 
         /**
          * Sets the ammo rarity for this gadget.
@@ -160,6 +190,17 @@ public interface GadgetType extends CosmeticType<GadgetType, GadgetBehavior> {
          * @return this builder for method chaining
          */
         Builder ammoCost(int ammoCost);
+
+        /**
+         * Sets the ammo loot for treasure chests.
+         * <p>
+         * Only treasure chest types present in this map can contain this gadget as loot.
+         * Each provider determines how much gadget ammo is awarded.
+         *
+         * @param ammoLoot map of chest type to ammo provider
+         * @return this builder for method chaining
+         */
+        Builder ammoLoot(Map<String, IntProvider> ammoLoot);
 
         /**
          * Builds and returns the configured gadget type instance.

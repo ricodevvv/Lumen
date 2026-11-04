@@ -61,6 +61,10 @@ cosmetics:
       cost: 2500
     item: "minecraft:redstone"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   candy_cane_arrows:
     enabled: true
@@ -70,6 +74,10 @@ cosmetics:
       cost: 2500
     item: "minecraft:sugar"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   confetti_arrows:
     enabled: true
@@ -79,6 +87,10 @@ cosmetics:
       cost: 2500
     item: "minecraft:melon_seeds"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   enchanted_arrows:
     enabled: true
@@ -88,6 +100,10 @@ cosmetics:
       cost: 2500
     item: "minecraft:book"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   flame_arrows:
     enabled: true
@@ -97,6 +113,10 @@ cosmetics:
       cost: 10000
     item: "minecraft:blaze_powder"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   frost_lord_arrows:
     enabled: true
@@ -106,6 +126,10 @@ cosmetics:
       cost: 2500
     item: "minecraft:snowball"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   green_arrows:
     enabled: true
@@ -115,6 +139,10 @@ cosmetics:
       cost: 2500
     item: "minecraft:emerald"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   lava_arrows:
     enabled: true
@@ -124,6 +152,10 @@ cosmetics:
       cost: 2500
     item: "minecraft:lava_bucket"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   love_arrows:
     enabled: true
@@ -133,6 +165,10 @@ cosmetics:
       cost: 2500
     item: "minecraft:poppy"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   magical_arrows:
     enabled: true
@@ -142,6 +178,10 @@ cosmetics:
       cost: 2500
     item: "minecraft:purple_dye"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   music_arrows:
     enabled: true
@@ -151,6 +191,10 @@ cosmetics:
       cost: 2500
     item: "minecraft:note_block"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   rain_arrows:
     enabled: true
@@ -160,6 +204,10 @@ cosmetics:
       cost: 2500
     item: "minecraft:water_bucket"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   shadow_arrows:
     enabled: true
@@ -169,6 +217,10 @@ cosmetics:
       cost: 2500
     item: "minecraft:coal"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   sparkly_arrows:
     enabled: true
@@ -178,6 +230,10 @@ cosmetics:
       cost: 10000
     item: "minecraft:firework_rocket[!minecraft:fireworks]"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
 # Do not edit this!
 config_version: 1

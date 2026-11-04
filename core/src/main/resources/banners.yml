@@ -71,6 +71,10 @@ cosmetics:
       {color: 'yellow', pattern: 'minecraft:triangles_top'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   candy_cane:
     enabled: true
@@ -87,6 +91,10 @@ cosmetics:
       {color: 'red', pattern: 'minecraft:border'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   castle:
     enabled: true
@@ -102,6 +110,10 @@ cosmetics:
       {color: 'light_blue', pattern: 'minecraft:triangles_top'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   cat:
     enabled: true
@@ -118,6 +130,10 @@ cosmetics:
       {color: 'brown', pattern: 'minecraft:triangles_bottom'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   chicken:
     enabled: true
@@ -134,6 +150,10 @@ cosmetics:
       {color: 'white', pattern: 'minecraft:stripe_bottom'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   christmas_creeper:
     enabled: true
@@ -150,6 +170,10 @@ cosmetics:
       {color: 'white', pattern: 'minecraft:circle'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   creeper:
     enabled: true
@@ -166,6 +190,10 @@ cosmetics:
       {color: 'black', pattern: 'minecraft:creeper'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   crown:
     enabled: true
@@ -180,6 +208,10 @@ cosmetics:
       {color: 'black', pattern: 'minecraft:border'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   crying_creeper:
     enabled: true
@@ -195,6 +227,10 @@ cosmetics:
       {color: 'lime', pattern: 'minecraft:curly_border'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   demon:
     enabled: true
@@ -210,6 +246,10 @@ cosmetics:
       {color: 'black', pattern: 'minecraft:skull'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   disco:
     enabled: true
@@ -245,6 +285,10 @@ cosmetics:
         duration: 2
       - item: "minecraft:magenta_banner"
         duration: 2
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   duck:
     enabled: true
@@ -261,6 +305,10 @@ cosmetics:
       {color: 'orange', pattern: 'minecraft:stripe_middle'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   ender_dragon:
     enabled: true
@@ -277,6 +325,10 @@ cosmetics:
       {color: 'black', pattern: 'minecraft:mojang'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   enderman:
     enabled: true
@@ -293,6 +345,10 @@ cosmetics:
       {color: 'black', pattern: 'minecraft:stripe_middle'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   fire:
     enabled: true
@@ -309,6 +365,10 @@ cosmetics:
       {color: 'yellow', pattern: 'minecraft:triangles_bottom'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   fox:
     enabled: true
@@ -324,6 +384,10 @@ cosmetics:
       {color: 'orange', pattern: 'minecraft:triangle_top'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   goose:
     enabled: true
@@ -340,6 +404,10 @@ cosmetics:
       {color: 'black', pattern: 'minecraft:half_vertical_right'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   halloween_creeper:
     enabled: true
@@ -355,6 +423,10 @@ cosmetics:
       {color: 'yellow', pattern: 'minecraft:creeper'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   happy_ghast:
     enabled: true
@@ -371,6 +443,10 @@ cosmetics:
       {color: 'black', pattern: 'minecraft:stripe_top'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   happy_sheep:
     enabled: true
@@ -385,6 +461,10 @@ cosmetics:
       {color: 'white', pattern: 'minecraft:flower'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   heart:
     enabled: true
@@ -399,6 +479,10 @@ cosmetics:
       {color: 'black', pattern: 'minecraft:triangle_top'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   ice_cream:
     enabled: true
@@ -415,6 +499,10 @@ cosmetics:
       {color: 'white', pattern: 'minecraft:circle'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   iron_golem:
     enabled: true
@@ -431,6 +519,10 @@ cosmetics:
       {color: 'white', pattern: 'minecraft:half_horizontal'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   lightning:
     enabled: true
@@ -447,6 +539,10 @@ cosmetics:
       {color: 'light_blue', pattern: 'minecraft:square_top_right'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   llama:
     enabled: true
@@ -463,6 +559,10 @@ cosmetics:
       {color: 'light_blue', pattern: 'minecraft:border'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   mirror:
     enabled: true
@@ -479,6 +579,10 @@ cosmetics:
       {color: 'yellow', pattern: 'minecraft:triangles_top'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   moon:
     enabled: true
@@ -494,6 +598,10 @@ cosmetics:
       {color: 'black', pattern: 'minecraft:triangles_bottom'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   mountain:
     enabled: true
@@ -509,6 +617,10 @@ cosmetics:
       {color: 'light_gray', pattern: 'minecraft:triangles_bottom'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   nether_portal:
     enabled: true
@@ -523,6 +635,10 @@ cosmetics:
       {color: 'black', pattern: 'minecraft:border'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   octopus:
     enabled: true
@@ -539,6 +655,10 @@ cosmetics:
       {color: 'blue', pattern: 'minecraft:border'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   ominous:
     enabled: true
@@ -555,6 +675,10 @@ cosmetics:
       {color: 'black', pattern: 'minecraft:border'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   panda:
     enabled: true
@@ -571,6 +695,10 @@ cosmetics:
       {color: 'white', pattern: 'minecraft:stripe_bottom'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   pig:
     enabled: true
@@ -587,6 +715,10 @@ cosmetics:
       {color: 'black', pattern: 'minecraft:piglin'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   pineapple:
     enabled: true
@@ -603,6 +735,10 @@ cosmetics:
       {color: 'light_blue', pattern: 'minecraft:curly_border'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   pirate_skull:
     enabled: true
@@ -618,6 +754,10 @@ cosmetics:
       {color: 'light_blue', pattern: 'minecraft:triangles_top'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   potion:
     enabled: true
@@ -634,6 +774,10 @@ cosmetics:
       {color: 'black', pattern: 'minecraft:border'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   present:
     enabled: true
@@ -650,6 +794,10 @@ cosmetics:
       {color: 'white', pattern: 'minecraft:border'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   pug:
     enabled: true
@@ -671,6 +819,10 @@ cosmetics:
       {color: 'brown', pattern: 'minecraft:circle'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   rabbit:
     enabled: true
@@ -687,6 +839,10 @@ cosmetics:
       {color: 'white', pattern: 'minecraft:triangles_bottom'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   rat:
     enabled: true
@@ -702,6 +858,10 @@ cosmetics:
       {color: 'light_gray', pattern: 'minecraft:creeper'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   rose:
     enabled: true
@@ -718,6 +878,10 @@ cosmetics:
       {color: 'white', pattern: 'minecraft:triangles_top'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   santa_hat:
     enabled: true
@@ -733,6 +897,10 @@ cosmetics:
       {color: 'red', pattern: 'minecraft:triangle_bottom'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   smile:
     enabled: true
@@ -749,6 +917,10 @@ cosmetics:
       {color: 'yellow', pattern: 'minecraft:border'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   snowflake:
     enabled: true
@@ -763,6 +935,10 @@ cosmetics:
       {color: 'white', pattern: 'minecraft:flower'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   snowy_tree:
     enabled: true
@@ -784,6 +960,10 @@ cosmetics:
       {color: 'light_blue', pattern: 'minecraft:curly_border'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   speech_bubble:
     enabled: true
@@ -799,6 +979,10 @@ cosmetics:
       {color: 'light_blue', pattern: 'minecraft:square_bottom_left'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   sunflower:
     enabled: true
@@ -816,6 +1000,10 @@ cosmetics:
       {color: 'brown', pattern: 'minecraft:circle'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   sunrise:
     enabled: true
@@ -830,6 +1018,10 @@ cosmetics:
       {color: 'yellow', pattern: 'minecraft:circle'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   sweden:
     enabled: true
@@ -842,6 +1034,10 @@ cosmetics:
       {color: 'yellow', pattern: 'minecraft:straight_cross'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   sword:
     enabled: true
@@ -858,6 +1054,10 @@ cosmetics:
       {color: 'black', pattern: 'minecraft:square_bottom_right'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   taco:
     enabled: true
@@ -873,6 +1073,10 @@ cosmetics:
       {color: 'black', pattern: 'minecraft:half_horizontal_bottom'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   united_states_of_america:
     enabled: true
@@ -885,6 +1089,10 @@ cosmetics:
       {color: 'blue', pattern: 'minecraft:square_bottom_left'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   white_flower:
     enabled: true
@@ -901,6 +1109,10 @@ cosmetics:
       {color: 'yellow', pattern: 'minecraft:circle'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   wither:
     enabled: true
@@ -915,6 +1127,10 @@ cosmetics:
       {color: 'black', pattern: 'minecraft:skull'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   wolf:
     enabled: true
@@ -931,6 +1147,10 @@ cosmetics:
       {color: 'light_gray', pattern: 'minecraft:triangles_top'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   wreath:
     enabled: true
@@ -945,6 +1165,10 @@ cosmetics:
       {color: 'light_blue', pattern: 'minecraft:circle'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   yellow_flower:
     enabled: true
@@ -961,6 +1185,10 @@ cosmetics:
       {color: 'yellow', pattern: 'minecraft:circle'}],
       minecraft:tooltip_display={hidden_components: ["minecraft:banner_patterns"]}]
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
 # Do not edit this!
 config_version: 1

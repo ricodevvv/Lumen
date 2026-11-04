@@ -27,8 +27,12 @@ import com.ricodev.lumen.api.cosmetic.gadget.Gadget;
 import com.ricodev.lumen.api.cosmetic.gadget.GadgetBehavior;
 import com.ricodev.lumen.api.cosmetic.gadget.GadgetType;
 import com.ricodev.lumen.api.cosmetic.registry.CosmeticCategory;
+import com.ricodev.lumen.api.treasure.loot.number.IntProvider;
 import com.ricodev.lumen.api.user.User;
+import com.ricodev.lumen.api.util.structure.StructureData;
 import com.ricodev.lumen.cosmetic.CosmeticTypeImpl;
+import com.ricodev.lumen.treasure.loot.number.RangedIntProviderImpl;
+import com.ricodev.lumen.util.structure.StructureReader;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -41,11 +45,13 @@ public class GadgetTypeImpl extends CosmeticTypeImpl<GadgetType, GadgetBehavior>
 
     private final double cooldown;
     private final double duration;
+    private final StructureData structure;
     private final CosmeticRarity ammoRarity;
     private final boolean infinityAmmo;
     private final boolean purchasableAmmo;
     private final int ammoPurchaseAmount;
     private final int ammoCost;
+    private final Map<String, IntProvider> ammoLoot;
 
     public GadgetTypeImpl(String key,
                           CosmeticCategory<GadgetType, GadgetBehavior, ?> category,
@@ -58,19 +64,23 @@ public class GadgetTypeImpl extends CosmeticTypeImpl<GadgetType, GadgetBehavior>
                           List<String> treasureChests,
                           double cooldown,
                           double duration,
+                          StructureData structure,
                           CosmeticRarity ammoRarity,
                           boolean infinityAmmo,
                           boolean purchasableAmmo,
                           int ammoPurchaseAmount,
-                          int ammoCost) {
+                          int ammoCost,
+                          Map<String, IntProvider> ammoLoot) {
         super(key, category, behaviourFactory, enabled, purchasable, cost, rarity, itemStack, treasureChests);
         this.cooldown = cooldown;
         this.duration = duration;
+        this.structure = structure;
         this.ammoRarity = ammoRarity;
         this.infinityAmmo = infinityAmmo;
         this.purchasableAmmo = purchasableAmmo;
         this.ammoPurchaseAmount = ammoPurchaseAmount;
         this.ammoCost = ammoCost;
+        this.ammoLoot = new HashMap<>(ammoLoot);
     }
 
     @Override
@@ -99,6 +109,11 @@ public class GadgetTypeImpl extends CosmeticTypeImpl<GadgetType, GadgetBehavior>
     }
 
     @Override
+    public @Nullable StructureData getStructure() {
+        return structure;
+    }
+
+    @Override
     public CosmeticRarity getAmmoRarity() {
         return ammoRarity;
     }
@@ -123,15 +138,22 @@ public class GadgetTypeImpl extends CosmeticTypeImpl<GadgetType, GadgetBehavior>
         return ammoCost;
     }
 
+    @Override
+    public Map<String, IntProvider> getAmmoLoot() {
+        return ammoLoot;
+    }
+
     public static class BuilderImpl extends CosmeticTypeImpl.BuilderImpl<GadgetType, GadgetBehavior, GadgetType.Builder> implements GadgetType.Builder {
 
         private double cooldown;
         private double duration;
+        private StructureData structure;
         private CosmeticRarity ammoRarity;
         private boolean infinityAmmo;
         private boolean purchasableAmmo;
         private int ammoPurchaseAmount;
         private int ammoCost;
+        private Map<String, IntProvider> ammoLoot = new HashMap<>();
 
         public BuilderImpl(String key, CosmeticCategory<GadgetType, GadgetBehavior, ?> category) {
             super(key, category);
@@ -152,12 +174,25 @@ public class GadgetTypeImpl extends CosmeticTypeImpl<GadgetType, GadgetBehavior>
             cooldown = Math.max(0.1d, config.getDouble(path + "cooldown"));
             duration = Math.min(cooldown, config.getDouble(path + "duration"));
 
+            structure = StructureReader.loadStructure(key);
+
             ammoRarity = PLUGIN.getCosmeticRarityRegistry().getSafely(config.getString(path + "ammo.rarity"));
             infinityAmmo = config.getBoolean(path + "ammo.infinity");
             purchasableAmmo = config.getBoolean(path + "ammo.purchasable.enabled");
             ammoPurchaseAmount = Math.max(0, config.getInt(path + "ammo.purchasable.amount"));
             ammoCost = Math.max(0, config.getInt(path + "ammo.purchasable.cost"));
 
+            String ammoWeightsPath = path + "ammo.treasure_chests";
+            for (String chestKey : config.getSectionKeys(ammoWeightsPath)) {
+                String chestPath = ammoWeightsPath + "." + chestKey + ".";
+                int minAmount = config.getInt(chestPath + "minimum_amount");
+                int maxAmount = config.getInt(chestPath + "maximum_amount");
+
+                if (minAmount > 0 && maxAmount > 0) {
+                    IntProvider intProvider = new RangedIntProviderImpl(minAmount, maxAmount);
+                    ammoLoot.put(chestKey, intProvider);
+                }
+            }
             return self();
         }
 
@@ -170,6 +205,12 @@ public class GadgetTypeImpl extends CosmeticTypeImpl<GadgetType, GadgetBehavior>
         @Override
         public GadgetType.Builder duration(double duration) {
             this.duration = duration;
+            return this;
+        }
+
+        @Override
+        public GadgetType.Builder structure(StructureData structure) {
+            this.structure = structure;
             return this;
         }
 
@@ -204,6 +245,12 @@ public class GadgetTypeImpl extends CosmeticTypeImpl<GadgetType, GadgetBehavior>
         }
 
         @Override
+        public GadgetType.Builder ammoLoot(Map<String, IntProvider> ammoLoot) {
+            this.ammoLoot = new HashMap<>(ammoLoot);
+            return this;
+        }
+
+        @Override
         public GadgetType build() {
             return new GadgetTypeImpl(key,
                     category,
@@ -216,11 +263,13 @@ public class GadgetTypeImpl extends CosmeticTypeImpl<GadgetType, GadgetBehavior>
                     treasureChests,
                     cooldown,
                     duration,
+                    structure,
                     ammoRarity,
                     infinityAmmo,
                     purchasableAmmo,
                     ammoPurchaseAmount,
-                    ammoCost
+                    ammoCost,
+                    ammoLoot
             );
         }
     }

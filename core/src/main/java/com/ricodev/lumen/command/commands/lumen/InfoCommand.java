@@ -81,6 +81,22 @@ public class InfoCommand extends SubCommand<CommandSender> {
                     Placeholder.component("status", translator.translate(statusStatus))
             ), Component.newline());
 
+            if (!user.getTreasureChests().isEmpty()) {
+                messageBuilder.append(translator.translate("command.info.treasure_chests.header"),
+                        Component.newline(),
+                        Component.join(JoinConfiguration.newlines(),
+                                user.getTreasureChests().entrySet().stream()
+                                        .map(entry -> translator.translate(
+                                                "command.info.treasure_chests.entry",
+                                                Placeholder.unparsed("treasure_chest", entry.getKey().getName(translator)),
+                                                Placeholder.unparsed("amount", String.valueOf(entry.getValue()))
+                                        ))
+                                        .collect(Collectors.toList())
+                        ),
+                        Component.newline()
+                );
+            }
+
             if (!user.getCosmetics().isEmpty()) {
                 messageBuilder.append(translator.translate("command.info.equipped_cosmetics.header"),
                         Component.newline(),

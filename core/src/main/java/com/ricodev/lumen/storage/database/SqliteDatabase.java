@@ -70,6 +70,18 @@ public class SqliteDatabase extends SQLDatabase {
     }
 
     @Override
+    protected String getCreateTreasureChestsTable() {
+        return "CREATE TABLE IF NOT EXISTS %s (" +
+                "player_id INTEGER NOT NULL, " +
+                "treasure_chest TEXT NOT NULL, " +
+                "amount INTEGER NOT NULL DEFAULT 0, " +
+                "PRIMARY KEY (player_id, treasure_chest), " +
+                "FOREIGN KEY (player_id) REFERENCES %s(id) ON DELETE CASCADE, " +
+                "CHECK (amount >= 0)" +
+                ");";
+    }
+
+    @Override
     protected String getEquipCosmeticQuery() {
         return "INSERT OR REPLACE INTO %s (player_id, category, cosmetic) VALUES (?, ?, ?);";
     }
@@ -85,4 +97,14 @@ public class SqliteDatabase extends SQLDatabase {
         return "INSERT OR REPLACE INTO %s (player_id, gadget, amount) VALUES (?, ?, ?);";
     }
 
+    @Override
+    protected String getAddTreasureChests() {
+        return "INSERT OR REPLACE INTO %1$s (player_id, treasure_chest, amount) VALUES (?1, ?2, " +
+                "COALESCE((SELECT amount FROM %1$s WHERE player_id = ?1 AND treasure_chest = ?2), 0) + ?3);";
+    }
+
+    @Override
+    protected String getSetTreasureChests() {
+        return "INSERT OR REPLACE INTO %s (player_id, treasure_chest, amount) VALUES (?, ?, ?);";
+    }
 }

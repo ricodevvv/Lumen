@@ -71,6 +71,10 @@ cosmetics:
     movement_speed: 0.2
     item: "minecraft:snow_block"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   cave_spider:
     enabled: true
@@ -81,6 +85,10 @@ cosmetics:
     movement_speed: 0.2
     item: "minecraft:spider_eye"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   clumsy_mule:
     enabled: true
@@ -91,6 +99,10 @@ cosmetics:
     movement_speed: 0.2
     item: "minecraft:chest"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   crazy_chicken:
     enabled: true
@@ -101,6 +113,10 @@ cosmetics:
     movement_speed: 0.5
     item: "minecraft:egg"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   decrepit_warhorse:
     enabled: true
@@ -111,6 +127,10 @@ cosmetics:
     movement_speed: 0.2
     item: "minecraft:rotten_flesh"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   ethereal_dragon:
     enabled: true
@@ -121,6 +141,10 @@ cosmetics:
     movement_speed: 0.6
     item: "minecraft:dragon_egg[!minecraft:rarity]"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   frosty_snowman:
     enabled: true
@@ -131,6 +155,10 @@ cosmetics:
     movement_speed: 0.2
     item: "minecraft:snowball"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   glacial_steed:
     enabled: true
@@ -141,6 +169,10 @@ cosmetics:
     movement_speed: 0.2
     item: "minecraft:packed_ice"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
 
   infernal_horror:
@@ -152,6 +184,10 @@ cosmetics:
     movement_speed: 0.2
     item: "minecraft:bone"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   lovely_sheep:
     enabled: true
@@ -162,6 +198,10 @@ cosmetics:
     movement_speed: 0.2
     item: "minecraft:pink_stained_glass"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   molten_snake:
     enabled: true
@@ -172,6 +212,10 @@ cosmetics:
     movement_speed: 0.7
     item: "minecraft:netherrack"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   pirate_ship:
     enabled: true
@@ -182,6 +226,10 @@ cosmetics:
     movement_speed: 0.3
     item: "minecraft:oak_boat"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   rudolf:
     enabled: true
@@ -192,6 +240,10 @@ cosmetics:
     movement_speed: 0.2
     item: "minecraft:dead_bush"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   slime:
     enabled: true
@@ -202,6 +254,10 @@ cosmetics:
     movement_speed: 0.2
     item: "minecraft:slime_block"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
   unicorn:
     enabled: true
@@ -212,6 +268,10 @@ cosmetics:
     movement_speed: 0.2
     item: "minecraft:blaze_rod"
     count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
 
 # Do not edit this!
 config_version: 2
