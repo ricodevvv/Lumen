@@ -41,6 +41,31 @@ public final class Entities {
     }
 
     /**
+     * The first of these entity types the server has, by modern or legacy name.
+     */
+    public static org.bukkit.entity.EntityType type(String... names) {
+        for (String name : names) {
+            com.cryptomorin.xseries.XEntityType type = com.cryptomorin.xseries.XEntityType.of(name).orElse(null);
+
+            if (type != null && type.isSupported() && type.get() != null) {
+                return type.get();
+            }
+            try {
+                return org.bukkit.entity.EntityType.valueOf(name);
+            } catch (IllegalArgumentException ignored) {
+            }
+        }
+        return org.bukkit.entity.EntityType.PIG;
+    }
+
+    /**
+     * Dropped items, called DROPPED_ITEM before 1.20.5 and ITEM after.
+     */
+    public static org.bukkit.entity.EntityType itemType() {
+        return com.cryptomorin.xseries.XEntityType.ITEM.get();
+    }
+
+    /**
      * Spawns the entity and runs the setup right after. The consumer overload of
      * {@code World#spawn} doesn't exist before 1.11.
      */

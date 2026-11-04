@@ -275,6 +275,9 @@ public abstract class SQLDatabase extends DatabaseImpl {
 
     @Override
     public CompletableFuture<Boolean> saveEquippedCosmeticAsync(User user, CosmeticType<?, ?> cosmeticType) {
+        if (cosmeticType.getCategory() == plugin.getCategoryRegistries().music()) {
+            return CompletableFuture.completedFuture(true);
+        }
         return CompletableFuture.supplyAsync(() -> {
             try (Connection connection = connectionProvider.getConnection();
                  PreparedStatement statement = connection.prepareStatement(String.format(getEquipCosmeticQuery(), cosmeticsTable))) {
@@ -293,6 +296,9 @@ public abstract class SQLDatabase extends DatabaseImpl {
 
     @Override
     public CompletableFuture<Boolean> removeEquippedCosmeticAsync(User user, CosmeticCategory<?, ?, ?> category) {
+        if (category == plugin.getCategoryRegistries().music()) {
+            return CompletableFuture.completedFuture(true);
+        }
         return CompletableFuture.supplyAsync(() -> {
             try (Connection connection = connectionProvider.getConnection();
                  PreparedStatement statement = connection.prepareStatement(String.format(SQL_UNEQUIP_COSMETIC, cosmeticsTable))) {

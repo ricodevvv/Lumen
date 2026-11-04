@@ -89,7 +89,7 @@ public class FakeBlockManager {
     }
 
     public boolean setFakeBlock(Block block, ItemStack itemStack, boolean overwrite, long durationTicks) {
-        if (!itemStack.getType().isBlock()) {
+        if (itemStack == null || !itemStack.getType().isBlock()) {
             return false;
         }
         return setFakeBlock(block, XMaterial.matchXMaterial(itemStack), overwrite, durationTicks);

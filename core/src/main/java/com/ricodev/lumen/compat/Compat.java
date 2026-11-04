@@ -99,12 +99,34 @@ public interface Compat {
 
     void playHurtAnimation(LivingEntity entity);
 
+    boolean isLeftHanded(Player player);
+
+    /**
+     * Real invisibility on 1.16.3+, an invisibility potion before that.
+     */
+    void setInvisible(LivingEntity entity, boolean invisible);
+
+    void setMaxHealth(LivingEntity entity, double health);
+
+    void setMovementSpeed(LivingEntity entity, double speed);
+
+    void setMainHand(LivingEntity entity, ItemStack itemStack);
+
+    void setOffHand(LivingEntity entity, ItemStack itemStack);
+
+    /**
+     * Hides one entity from one player. 1.18+ has an API for it, older servers just get a destroy packet.
+     */
+    void hideEntity(org.bukkit.plugin.Plugin plugin, Player player, Entity entity);
+
     /**
      * Changes what a thrown snowball or egg looks like, 1.14+ only.
      */
     void setProjectileItem(Entity projectile, ItemStack itemStack);
 
     org.bukkit.entity.FallingBlock spawnFallingBlock(Location location, Block block);
+
+    org.bukkit.entity.FallingBlock spawnFallingBlock(Location location, XMaterial material);
 
     /**
      * The grey cooldown sweep over an item in the hotbar, 1.11.2+ only.

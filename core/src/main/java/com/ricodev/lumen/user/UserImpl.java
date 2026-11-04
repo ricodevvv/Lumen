@@ -33,6 +33,8 @@ import com.ricodev.lumen.api.cosmetic.gadget.GadgetType;
 import com.ricodev.lumen.api.cosmetic.registry.CosmeticCategory;
 import com.ricodev.lumen.api.locale.Translatable;
 import com.ricodev.lumen.api.user.User;
+import com.ricodev.lumen.api.cosmetic.morph.Morph;
+import com.ricodev.lumen.api.entity.CosmeticEntity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -194,6 +196,21 @@ public class UserImpl implements User {
 
     public void setSelfViewMorph(boolean visible, boolean update) {
         selfViewMorph = visible;
+
+        if (update) {
+            Cosmetic<?, ?> morph = getCosmetic(plugin.getCategoryRegistries().morphs());
+            Player player = getPlayer();
+
+            if (morph instanceof Morph && morph.isEquipped() && player != null) {
+                CosmeticEntity entity = ((Morph) morph).getCosmeticEntity();
+
+                if (visible) {
+                    entity.getTracker().removeAntiViewer(player);
+                } else {
+                    entity.getTracker().addAntiViewer(player);
+                }
+            }
+        }
     }
 
     @Override
@@ -203,6 +220,15 @@ public class UserImpl implements User {
 
     public void setSelfViewStatus(boolean visible, boolean update) {
         selfViewStatus = visible;
+
+        if (update) {
+            Cosmetic<?, ?> status = getCosmetic(plugin.getCategoryRegistries().statuses());
+
+            if (status != null && status.isEquipped()) {
+                status.unequip(true, false);
+                status.equip(true, false);
+            }
+        }
     }
 
     @Override

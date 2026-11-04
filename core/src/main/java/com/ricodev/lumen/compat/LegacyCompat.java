@@ -330,6 +330,49 @@ public class LegacyCompat implements Compat {
     }
 
     @Override
+    public void hideEntity(org.bukkit.plugin.Plugin plugin, Player player, Entity entity) {
+        com.github.retrooper.packetevents.PacketEvents.getAPI().getPlayerManager().sendPacket(player,
+                new com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerDestroyEntities(entity.getEntityId()));
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public void setMainHand(LivingEntity entity, ItemStack itemStack) {
+        entity.getEquipment().setItemInHand(itemStack);
+    }
+
+    @Override
+    public void setOffHand(LivingEntity entity, ItemStack itemStack) {
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public void setMaxHealth(LivingEntity entity, double health) {
+        entity.setMaxHealth(health);
+        entity.setHealth(health);
+    }
+
+    @Override
+    public void setMovementSpeed(LivingEntity entity, double speed) {
+    }
+
+    @Override
+    public void setInvisible(LivingEntity entity, boolean invisible) {
+        if (entity instanceof ArmorStand) {
+            ((ArmorStand) entity).setVisible(!invisible);
+        } else if (invisible) {
+            entity.addPotionEffect(new org.bukkit.potion.PotionEffect(org.bukkit.potion.PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0, false, false), true);
+        } else {
+            entity.removePotionEffect(org.bukkit.potion.PotionEffectType.INVISIBILITY);
+        }
+    }
+
+    @Override
+    public boolean isLeftHanded(Player player) {
+        return false;
+    }
+
+    @Override
     public void setProjectileItem(Entity projectile, ItemStack itemStack) {
     }
 
@@ -337,6 +380,12 @@ public class LegacyCompat implements Compat {
     @SuppressWarnings("deprecation")
     public org.bukkit.entity.FallingBlock spawnFallingBlock(Location location, Block block) {
         return location.getWorld().spawnFallingBlock(location, block.getType(), block.getData());
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public org.bukkit.entity.FallingBlock spawnFallingBlock(Location location, XMaterial material) {
+        return location.getWorld().spawnFallingBlock(location, material.parseMaterial(), material.getData());
     }
 
     @Override

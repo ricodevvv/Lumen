@@ -265,6 +265,60 @@ public class ModernCompat extends LegacyCompat {
     }
 
     @Override
+    public void hideEntity(org.bukkit.plugin.Plugin plugin, Player player, Entity entity) {
+        try {
+            Player.class.getMethod("hideEntity", org.bukkit.plugin.Plugin.class, Entity.class).invoke(player, plugin, entity);
+        } catch (ReflectiveOperationException | RuntimeException e) {
+            super.hideEntity(plugin, player, entity);
+        }
+    }
+
+    @Override
+    public void setMainHand(LivingEntity entity, ItemStack itemStack) {
+        entity.getEquipment().setItemInMainHand(itemStack);
+    }
+
+    @Override
+    public void setOffHand(LivingEntity entity, ItemStack itemStack) {
+        entity.getEquipment().setItemInOffHand(itemStack);
+    }
+
+    @Override
+    public void setMaxHealth(LivingEntity entity, double health) {
+        if (setAttribute(entity, XAttribute.MAX_HEALTH, health)) {
+            entity.setHealth(health);
+        }
+    }
+
+    @Override
+    public void setMovementSpeed(LivingEntity entity, double speed) {
+        setAttribute(entity, XAttribute.MOVEMENT_SPEED, speed);
+    }
+
+    private static boolean setAttribute(LivingEntity entity, XAttribute attribute, double value) {
+        Attribute bukkit = attribute.get();
+        AttributeInstance instance = bukkit == null ? null : entity.getAttribute(bukkit);
+
+        if (instance == null) {
+            return false;
+        }
+        instance.setBaseValue(value);
+        return true;
+    }
+
+    @Override
+    public void setInvisible(LivingEntity entity, boolean invisible) {
+        if (!ServerVersion.atLeast(16, 3) || !invokeIfPresent(entity, "setInvisible", boolean.class, invisible)) {
+            super.setInvisible(entity, invisible);
+        }
+    }
+
+    @Override
+    public boolean isLeftHanded(Player player) {
+        return player.getMainHand() == org.bukkit.inventory.MainHand.LEFT;
+    }
+
+    @Override
     public void setProjectileItem(Entity projectile, ItemStack itemStack) {
         if (ServerVersion.atLeast(14) && projectile instanceof org.bukkit.entity.ThrowableProjectile) {
             ((org.bukkit.entity.ThrowableProjectile) projectile).setItem(itemStack);
@@ -277,6 +331,14 @@ public class ModernCompat extends LegacyCompat {
             return location.getWorld().spawnFallingBlock(location, block.getBlockData());
         }
         return super.spawnFallingBlock(location, block);
+    }
+
+    @Override
+    public org.bukkit.entity.FallingBlock spawnFallingBlock(Location location, XMaterial material) {
+        if (ServerVersion.atLeast(13)) {
+            return location.getWorld().spawnFallingBlock(location, material.get().createBlockData());
+        }
+        return super.spawnFallingBlock(location, material);
     }
 
     @Override

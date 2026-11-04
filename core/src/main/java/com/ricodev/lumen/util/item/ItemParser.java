@@ -18,6 +18,9 @@
 package com.ricodev.lumen.util.item;
 
 import com.cryptomorin.xseries.XMaterial;
+import com.cryptomorin.xseries.XPatternType;
+import org.bukkit.DyeColor;
+import org.bukkit.inventory.meta.BannerMeta;
 import com.ricodev.lumen.compat.ServerVersion;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemFlag;
@@ -42,6 +45,7 @@ import java.util.regex.Pattern;
 public final class ItemParser {
 
     private static final Pattern TEXTURE = Pattern.compile("value:'([A-Za-z0-9+/=]+)'");
+    private static final Pattern BANNER_LAYER = Pattern.compile("\\{\\s*color:\\s*'(\\w+)'\\s*,\\s*pattern:\\s*'(?:minecraft:)?(\\w+)'\\s*}");
 
     /**
      * Items that only exist on newer versions, mapped to something close that 1.8 has.
@@ -122,6 +126,9 @@ public final class ItemParser {
         }
         ItemMeta meta = itemStack.getItemMeta();
 
+        if (meta instanceof BannerMeta) {
+            applyBannerPatterns((BannerMeta) meta, components);
+        }
         if (meta != null) {
             if (components.contains("hide_tooltip:true")) {
                 meta.setDisplayName(" ");
@@ -132,6 +139,25 @@ public final class ItemParser {
             itemStack.setItemMeta(meta);
         }
         return itemStack;
+    }
+
+    private static void applyBannerPatterns(BannerMeta meta, String components) {
+        Matcher layer = BANNER_LAYER.matcher(components);
+
+        while (layer.find()) {
+            DyeColor color;
+
+            try {
+                color = DyeColor.valueOf(layer.group(1).toUpperCase(Locale.ROOT));
+            } catch (IllegalArgumentException e) {
+                continue;
+            }
+            XPatternType pattern = XPatternType.of(layer.group(2).toUpperCase(Locale.ROOT)).orElse(null);
+
+            if (pattern != null && pattern.isSupported()) {
+                meta.addPattern(new org.bukkit.block.banner.Pattern(color, pattern.get()));
+            }
+        }
     }
 
     private static @Nullable ItemStack parseNative(String item) {

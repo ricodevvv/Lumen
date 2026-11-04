@@ -54,7 +54,11 @@ public class CosmeticListener implements Listener {
                     continue;
                 }
 
-                user.unequipCosmetic(category, true, false);
+                if (category.equals(plugin.getCategoryRegistries().music())) {
+                    user.removeCosmetic(category, true, false);
+                } else {
+                    user.unequipCosmetic(category, true, false);
+                }
             }
         }
     }

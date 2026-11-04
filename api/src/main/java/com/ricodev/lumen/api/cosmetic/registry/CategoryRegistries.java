@@ -31,6 +31,30 @@ import com.ricodev.lumen.api.cosmetic.particleeffect.ParticleEffectType;
 import com.ricodev.lumen.api.cosmetic.pet.PetBehavior;
 import com.ricodev.lumen.api.cosmetic.pet.PetType;
 
+import com.ricodev.lumen.api.cosmetic.banner.BannerBehavior;
+import com.ricodev.lumen.api.cosmetic.banner.BannerType;
+
+import com.ricodev.lumen.api.cosmetic.emote.EmoteBehavior;
+import com.ricodev.lumen.api.cosmetic.emote.EmoteType;
+
+import com.ricodev.lumen.api.cosmetic.status.StatusBehavior;
+import com.ricodev.lumen.api.cosmetic.status.StatusType;
+
+import com.ricodev.lumen.api.cosmetic.balloon.BalloonBehavior;
+import com.ricodev.lumen.api.cosmetic.balloon.BalloonType;
+
+import com.ricodev.lumen.api.cosmetic.music.MusicBehavior;
+import com.ricodev.lumen.api.cosmetic.music.MusicType;
+
+import com.ricodev.lumen.api.cosmetic.miniature.MiniatureBehavior;
+import com.ricodev.lumen.api.cosmetic.miniature.MiniatureType;
+
+import com.ricodev.lumen.api.cosmetic.mount.MountBehavior;
+import com.ricodev.lumen.api.cosmetic.mount.MountType;
+
+import com.ricodev.lumen.api.cosmetic.morph.MorphBehavior;
+import com.ricodev.lumen.api.cosmetic.morph.MorphType;
+
 import java.util.Collection;
 
 /**
@@ -146,7 +170,55 @@ public interface CategoryRegistries {
     /**
      * Defines constant keys for all built-in cosmetic categories.
      */
+    default CosmeticCategory<BannerType, BannerBehavior, BannerType.Builder> banners() {
+        return getCategory(BuiltIn.BANNERS);
+    }
+
+    default CosmeticCategory<EmoteType, EmoteBehavior, EmoteType.Builder> emotes() {
+        return getCategory(BuiltIn.EMOTES);
+    }
+
+    default CosmeticCategory<StatusType, StatusBehavior, StatusType.Builder> statuses() {
+        return getCategory(BuiltIn.STATUSES);
+    }
+
+    default CosmeticCategory<BalloonType, BalloonBehavior, BalloonType.Builder> balloons() {
+        return getCategory(BuiltIn.BALLOONS);
+    }
+
+    default CosmeticCategory<MusicType, MusicBehavior, MusicType.Builder> music() {
+        return getCategory(BuiltIn.MUSIC);
+    }
+
+    default CosmeticCategory<MiniatureType, MiniatureBehavior, MiniatureType.Builder> miniatures() {
+        return getCategory(BuiltIn.MINIATURES);
+    }
+
+    default CosmeticCategory<MountType, MountBehavior, MountType.Builder> mounts() {
+        return getCategory(BuiltIn.MOUNTS);
+    }
+
+    default CosmeticCategory<MorphType, MorphBehavior, MorphType.Builder> morphs() {
+        return getCategory(BuiltIn.MORPHS);
+    }
+
     interface BuiltIn {
+
+        String MORPHS = "morphs";
+
+        String MOUNTS = "mounts";
+
+        String MINIATURES = "miniatures";
+
+        String MUSIC = "music";
+
+        String BALLOONS = "balloons";
+
+        String STATUSES = "statuses";
+
+        String EMOTES = "emotes";
+
+        String BANNERS = "banners";
 
         /**
          * Built-in key for arrow effects.

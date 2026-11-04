@@ -33,6 +33,7 @@ public enum LumenParticle {
     DUST,
     ENCHANT,
     ENCHANTED_HIT,
+    ENTITY_EFFECT,
     END_ROD(9, "FIREWORK"),
     EXPLOSION,
     EXPLOSION_EMITTER,

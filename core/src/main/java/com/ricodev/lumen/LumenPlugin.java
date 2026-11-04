@@ -120,6 +120,7 @@ public class LumenPlugin extends JavaPlugin implements Lumen {
         registerCommands();
         hookPlugins();
 
+        com.github.retrooper.packetevents.PacketEvents.getAPI().getEventManager().registerListener(new com.ricodev.lumen.util.entity.RideInput());
         userManager.loadOnlinePlayers();
         LumenProvider.register(this);
 

@@ -153,6 +153,54 @@ menu:
         item: "minecraft:bone"
         count: 1
         slot: 24
+      banners:
+        # Specifies whenever or not this category should be visible in the main menu.
+        enabled: true
+        item: "minecraft:light_blue_banner"
+        count: 1
+        slot: 13
+      emotes:
+        # Specifies whenever or not this category should be visible in the main menu.
+        enabled: true
+        item: "minecraft:player_head[profile={properties:[{name:'textures',value:'e3RleHR1cmVzOntTS0lOOnt1cmw6Imh0dHBzOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzQ3M2U3MmNjMzcxZGUyNWYzMzA1NjY1NzY5ZGQ3ZTlmZjExNjE2OTUyNTJlNzk5NjEyNTgwZGVlZWRkMyJ9fX0='}]},!minecraft:rarity]"
+        count: 1
+        slot: 15
+      statuses:
+        # Specifies whenever or not this category should be visible in the main menu.
+        enabled: true
+        item: "minecraft:name_tag"
+        count: 1
+        slot: 32
+      balloons:
+        # Specifies whenever or not this category should be visible in the main menu.
+        enabled: true
+        item: "minecraft:lead"
+        count: 1
+        slot: 12
+      music:
+        # Specifies whenever or not this category should be visible in the main menu.
+        enabled: true
+        item: "minecraft:music_disc_mall[!minecraft:jukebox_playable, !minecraft:rarity]"
+        count: 1
+        slot: 24
+      miniatures:
+        # Specifies whenever or not this category should be visible in the main menu.
+        enabled: true
+        item: "minecraft:zombie_head[!minecraft:rarity]"
+        count: 1
+        slot: 21
+      mounts:
+        # Specifies whenever or not this category should be visible in the main menu.
+        enabled: true
+        item: "minecraft:saddle"
+        count: 1
+        slot: 23
+      morphs:
+        # Specifies whenever or not this category should be visible in the main menu.
+        enabled: true
+        item: "minecraft:carved_pumpkin"
+        count: 1
+        slot: 22
       unequip_all:
         enabled: true
         item: "minecraft:barrier"
