@@ -3,18 +3,14 @@
 Cosmetics plugin that runs on every version from 1.8.8 to 26.x with the same jar. It's a fork of
 [ProCosmetics](https://github.com/FilleDev/ProCosmetics), which only supports 26.1 and newer.
 
-What's in right now:
+Everything ProCosmetics has is in: arrow effects, balloons, banners, death effects, emotes,
+gadgets, miniatures, morphs, mounts, music, particle effects, pets, statuses and treasure chests,
+plus the menus, coins and purchases, gadget ammo, SQLite/MySQL/MariaDB storage, Vault and
+PlayerPoints, PlaceholderAPI, and the vanish hooks for Essentials and PremiumVanish/SuperVanish.
 
-- Particle effects (36): wings, auras, rings, clouds, all of them
-- Gadgets (19): TNT, paintball, flesh hook, melon launcher, chicken parachute, cowboy, etc.
-- Pets: every mob the server version has (14 on 1.8, all 36 on 26.x)
-- Arrow effects (14) and death effects (14)
-- The menus, coins and purchases, gadget ammo, SQLite/MySQL/MariaDB storage, Vault and
-  PlayerPoints, PlaceholderAPI, and the vanish hooks for Essentials and PremiumVanish/SuperVanish
-
-Balloons, banners, emotes, miniatures, morphs, mounts, music, statuses and treasure chests from
-ProCosmetics aren't ported yet. Same with the gadgets that build structures (trampoline, slide,
-hot tub, rocket and friends), since those rely on display entities that 1.8 doesn't have.
+What's missing are the things built out of display entities that 1.8 has nothing for: the Hype
+Train mount and the gadgets that put up a structure (trampoline, slide, hot tub, rocket and
+friends). Pets, mounts and morphs that use a mob your version doesn't have turn themselves off.
 
 ## What you need
 
@@ -38,8 +34,15 @@ and everything that changed since then lives behind `Compat`:
 - Events that don't exist on 1.8 get registered by class name with `Events.listen(...)`, so the
   listener doesn't blow up when the class isn't there.
 
-Pets are real mobs with no AI that step after you every tick. That way they also walk properly on
-1.8 without touching pathfinding.
+Pets, miniatures and morph disguises are real mobs with no AI that move every tick, so they walk
+properly on 1.8 without touching pathfinding. Mounts keep their AI and get pushed by what the rider
+presses, read from the steer vehicle packet (or the player input one on 1.21.2+). Anything that's
+a display entity on new versions (balloons, horns, holograms, treasure chest text) is an invisible
+armor stand wearing the item instead, the way 1.8 servers always did it.
+
+Music doesn't use NoteBlockAPI anymore, Lumen reads the .nbs files itself and plays them with note
+block sounds. Structures (treasure chest platforms) are stored as modern block data strings: 1.13+
+places them with every state, older servers just use the material.
 
 The configs keep ProCosmetics' item format (`minecraft:player_head[profile=...]`). On 1.20.5+ the
 server reads it as is. Older servers only use the material, the head texture and the
