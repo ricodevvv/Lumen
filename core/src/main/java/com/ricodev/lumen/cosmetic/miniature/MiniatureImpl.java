@@ -26,6 +26,7 @@ import org.bukkit.entity.EntityType;
 import com.ricodev.lumen.util.entity.CosmeticEntities;
 
 import org.bukkit.Location;
+import org.bukkit.util.Vector;
 import org.bukkit.entity.*;
 import com.ricodev.lumen.LumenPlugin;
 import com.ricodev.lumen.api.cosmetic.miniature.Miniature;
@@ -78,10 +79,13 @@ public class MiniatureImpl extends CosmeticImpl<MiniatureType, MiniatureBehavior
         double y = playerLocation.getY() + 0.8d + yOffset;
         entityLocation.setY(y);
 
-        entityLocation.setDirection(playerLocation.add(0.0d, 0.8d, 0.0d)
+        Vector toPlayer = playerLocation.add(0.0d, 0.8d, 0.0d)
                 .subtract(entityLocation.getX(), entityLocation.getY(), entityLocation.getZ())
-                .toVector()
-                .normalize());
+                .toVector();
+
+        if (toPlayer.lengthSquared() > 1.0E-6d) {
+            entityLocation.setDirection(toPlayer.normalize());
+        }
 
         if (distanceSquared > DISTANCE_SQUARED_BEFORE_MOVE_TOWARDS_PLAYER) {
             float angle = FastMathUtil.toRadians(entityLocation.getYaw());

@@ -34,14 +34,14 @@ commands:
     description: Toggles the self view
     usage: /toggleselfview <type>
     permission: lumen.command.toggleselfview
-
-
-
-
-
-
-
-
-
-
-
+permissions:
+  lumen.command.cosmetics:
+    default: true
+  lumen.command.equip:
+    default: true
+  lumen.command.unequip:
+    default: true
+  lumen.command.unequipall:
+    default: true
+  lumen.command.toggleselfview:
+    default: true

@@ -120,15 +120,31 @@ public final class Entities {
      * {@code World#spawn} doesn't exist before 1.11.
      */
     public static <T extends Entity> T spawn(Location location, Class<T> type, Consumer<T> setup) {
+        loadChunk(location);
         T entity = location.getWorld().spawn(location, type);
         setup.accept(entity);
         return entity;
     }
 
     public static Item dropItem(Location location, ItemStack itemStack, Consumer<Item> setup) {
+        loadChunk(location);
         Item item = location.getWorld().dropItem(location, itemStack);
         setup.accept(item);
         return item;
+    }
+
+    /**
+     * Loads the chunk first, because older servers silently drop entities spawned in an unloaded
+     * one. That's the case for a player who just joined, whose chunk isn't loaded yet.
+     */
+    public static void loadChunk(Location location) {
+        World world = location.getWorld();
+        int chunkX = location.getBlockX() >> 4;
+        int chunkZ = location.getBlockZ() >> 4;
+
+        if (world != null && !world.isChunkLoaded(chunkX, chunkZ)) {
+            world.loadChunk(chunkX, chunkZ);
+        }
     }
 
     /**

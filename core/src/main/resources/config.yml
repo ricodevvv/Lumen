@@ -128,31 +128,31 @@ menu:
         enabled: true
         item: "minecraft:tipped_arrow[!minecraft:potion_contents]"
         count: 1
-        slot: 20
+        slot: 11
       death_effects:
         # Specifies whenever or not this category should be visible in the main menu.
         enabled: true
         item: "minecraft:skeleton_skull[!minecraft:rarity]"
         count: 1
-        slot: 21
+        slot: 14
       gadgets:
         # Specifies whenever or not this category should be visible in the main menu.
         enabled: true
         item: "minecraft:piston"
         count: 1
-        slot: 22
+        slot: 20
       particle_effects:
         # Specifies whenever or not this category should be visible in the main menu.
         enabled: true
         item: "minecraft:nether_star[!minecraft:rarity]"
         count: 1
-        slot: 23
+        slot: 30
       pets:
         # Specifies whenever or not this category should be visible in the main menu.
         enabled: true
         item: "minecraft:bone"
         count: 1
-        slot: 24
+        slot: 31
       banners:
         # Specifies whenever or not this category should be visible in the main menu.
         enabled: true

@@ -123,6 +123,8 @@ public class CosmeticEntityImpl implements CosmeticEntity {
         if (spawnAt.getWorld() == null) {
             spawnAt.setWorld(world);
         }
+        Entities.loadChunk(spawnAt);
+
         if (isItem()) {
             ItemStack item = itemStack != null ? itemStack : XMaterial.STONE.parseItem();
             Item dropped = spawnAt.getWorld().dropItem(spawnAt, item);

@@ -102,8 +102,7 @@ public class BannerImpl extends CosmeticImpl<BannerType, BannerBehavior> impleme
         if (nmsEquipment != null) {
             player.closeInventory();
             nmsEquipment.cancel();
-            nmsEquipment.setItemStack(player.getInventory().getHelmet());
-            nmsEquipment.sendUpdateToViewers();
+            nmsEquipment.restore();
         }
         nmsEquipment = null;
     }

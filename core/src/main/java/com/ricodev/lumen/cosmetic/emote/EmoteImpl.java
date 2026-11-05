@@ -104,8 +104,7 @@ public class EmoteImpl extends CosmeticImpl<EmoteType, EmoteBehavior> implements
         if (nmsEquipment != null) {
             player.closeInventory();
             nmsEquipment.cancel();
-            nmsEquipment.setItemStack(player.getInventory().getHelmet());
-            nmsEquipment.sendUpdateToViewers();
+            nmsEquipment.restore();
         }
         nmsEquipment = null;
     }

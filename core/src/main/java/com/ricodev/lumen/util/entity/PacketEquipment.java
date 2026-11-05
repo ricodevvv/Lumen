@@ -105,6 +105,27 @@ public class PacketEquipment extends AbstractRunnable {
         send(player, realHelmet);
     }
 
+    /**
+     * Stops faking the helmet and shows everyone the real one again, or an empty head if there isn't one.
+     */
+    public void restore() {
+        itemStack = null;
+        Player holder = PLUGIN.getServer().getPlayer(uuid);
+
+        if (holder == null) {
+            return;
+        }
+        ItemStack realHelmet = holder.getInventory().getHelmet();
+
+        for (Player player : viewers) {
+            if (player.isOnline()) {
+                send(player, realHelmet);
+            }
+        }
+        viewers.clear();
+        send(holder, realHelmet);
+    }
+
     public void setItemStack(@Nullable ItemStack itemStack) {
         this.itemStack = itemStack;
     }
