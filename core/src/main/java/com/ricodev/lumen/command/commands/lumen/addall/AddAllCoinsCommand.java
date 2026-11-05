@@ -28,7 +28,7 @@ public class AddAllCoinsCommand extends SubCommand<CommandSender> {
 
     public AddAllCoinsCommand(LumenPlugin plugin) {
         super(plugin, "lumen.command.addall.coins", true);
-        addFlats("allall", "coins");
+        addFlats("addall", "coins");
         addArgument(Integer.class, "amount");
     }
 

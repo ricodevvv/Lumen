@@ -31,7 +31,7 @@ public class AddAllAmmoCommand extends SubCommand<CommandSender> {
 
     public AddAllAmmoCommand(LumenPlugin plugin) {
         super(plugin, "lumen.command.addall.ammo", true);
-        addFlats("allall", "ammo");
+        addFlats("addall", "ammo");
         addArgument(String.class, "ammo", sender -> plugin.getCategoryRegistries().gadgets().getCosmeticRegistry().getTypes().stream().map(GadgetType::getKey).collect(Collectors.toList()));
         addArgument(Integer.class, "amount");
     }

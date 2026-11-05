@@ -134,7 +134,7 @@ public class MountImpl extends CosmeticImpl<MountType, MountBehavior> implements
     private void onDismount(Event event) {
         Entity dismounted = Events.entity(event, "getDismounted");
 
-        if (dismounted != null && dismounted == entity && despawnOnDismount) {
+        if (dismounted != null && dismounted == entity && despawnOnDismount && !Compats.get().isRepositioning(entity)) {
             user.removeCosmetic(cosmeticType.getCategory(), false, true);
         }
     }

@@ -17,6 +17,8 @@
  */
 package com.ricodev.lumen.cosmetic;
 
+import com.ricodev.lumen.util.entity.Entities;
+
 import com.cryptomorin.xseries.XEntityType;
 import com.cryptomorin.xseries.XSound;
 import com.ricodev.lumen.compat.Sounds;
@@ -227,8 +229,14 @@ public abstract class CosmeticTypeImpl<T extends CosmeticType<T, B>,
                 PLUGIN.getLogger().log(Level.WARNING, "Missing entity type for " + key + ".");
                 return null;
             }
-            XEntityType type = XEntityType.of(entityTypeName.toUpperCase(Locale.ROOT)).orElse(null);
-            return type == null ? null : type.get();
+            String name = entityTypeName.toUpperCase(Locale.ROOT);
+            XEntityType type = XEntityType.of(name).orElse(null);
+
+            if (type != null && type.isSupported() && type.get() != null) {
+                return type.get();
+            }
+            String fallback = Entities.legacyFallback(name);
+            return fallback == null ? null : Entities.type(fallback);
         }
 
         @Nullable

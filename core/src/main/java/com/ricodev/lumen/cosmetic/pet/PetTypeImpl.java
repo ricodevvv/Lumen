@@ -44,6 +44,7 @@ public class PetTypeImpl extends CosmeticTypeImpl<PetType, PetBehavior> implemen
     private final boolean baby;
     private final double scale;
     private final XSound spawnSound;
+    private String configuredEntity;
     private final ItemStack tossItem;
 
     public PetTypeImpl(String key,
@@ -94,6 +95,14 @@ public class PetTypeImpl extends CosmeticTypeImpl<PetType, PetBehavior> implemen
         return spawnSound == null ? null : spawnSound.get();
     }
 
+    /**
+     * The entity name as written in the config, which may differ from the spawned type on old versions.
+     */
+    @Nullable
+    public String getConfiguredEntity() {
+        return configuredEntity;
+    }
+
     @Nullable
     public XSound getSpawnXSound() {
         return spawnSound;
@@ -116,6 +125,7 @@ public class PetTypeImpl extends CosmeticTypeImpl<PetType, PetBehavior> implemen
         private boolean baby;
         private double scale = 1.0d;
         private XSound spawnSound;
+        private String configuredEntity;
         private ItemStack tossItem;
 
         public BuilderImpl(String key, CosmeticCategory<PetType, PetBehavior, ?> category) {
@@ -134,6 +144,7 @@ public class PetTypeImpl extends CosmeticTypeImpl<PetType, PetBehavior> implemen
             Config config = category.getConfig();
             String path = getPath();
 
+            configuredEntity = config.getString(path + "entity");
             entityType = parseEntity(path + "entity");
 
             if (entityType == null) {
@@ -180,7 +191,7 @@ public class PetTypeImpl extends CosmeticTypeImpl<PetType, PetBehavior> implemen
 
         @Override
         public PetType build() {
-            return new PetTypeImpl(key,
+            PetTypeImpl type = new PetTypeImpl(key,
                     category,
                     factory,
                     enabled,
@@ -195,6 +206,8 @@ public class PetTypeImpl extends CosmeticTypeImpl<PetType, PetBehavior> implemen
                     spawnSound,
                     tossItem
             );
+            type.configuredEntity = configuredEntity;
+            return type;
         }
     }
 }

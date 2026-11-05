@@ -76,10 +76,9 @@ public class EtherealPearl implements GadgetBehavior, Listener {
         Player player = context.getPlayer();
         location = player.getEyeLocation();
 
-        enderPearl = Entities.spawn(location, EnderPearl.class, entity -> {
-            entity.setVelocity(location.getDirection().multiply(2.0d));
-            MetadataUtil.setCustomEntity(entity);
-        });
+        enderPearl = player.launchProjectile(EnderPearl.class);
+        enderPearl.setVelocity(location.getDirection().multiply(2.0d));
+        MetadataUtil.setCustomEntity(enderPearl);
         Compats.get().addPassenger(enderPearl, player);
         context.getUser().setFallDamageProtection(15);
 

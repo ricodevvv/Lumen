@@ -110,6 +110,7 @@ public class PetImpl extends CosmeticImpl<PetType, PetBehavior> implements Pet {
             plugin.getPlatformAdapter().setCustomName(spawned, nameTag);
             spawned.setCustomNameVisible(!nameTag.equals(Component.empty()));
             Entities.makeCosmetic(spawned);
+            Entities.applyLegacyVariant(spawned, ((PetTypeImpl) cosmeticType).getConfiguredEntity());
 
             if (spawned instanceof LivingEntity) {
                 Compats.get().setScale((LivingEntity) spawned, cosmeticType.getScale());

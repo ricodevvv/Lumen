@@ -21,6 +21,7 @@ import com.cryptomorin.xseries.XMaterial;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.protocol.particle.Particle;
 import com.github.retrooper.packetevents.protocol.particle.data.ParticleBlockStateData;
+import com.github.retrooper.packetevents.protocol.particle.data.ParticleColorData;
 import com.github.retrooper.packetevents.protocol.particle.data.ParticleData;
 import com.github.retrooper.packetevents.protocol.particle.data.ParticleDustData;
 import com.github.retrooper.packetevents.protocol.particle.data.ParticleItemStackData;
@@ -138,6 +139,11 @@ public final class Particles {
             spawnLegacyDust(world, x, y, z, count, offsetX, offsetY, offsetZ, data);
             return;
         }
+
+        if (resolved == LumenParticle.ENTITY_EFFECT && data instanceof Color && !ServerVersion.atLeast(20, 5)) {
+            spawnLegacyColored(world, resolved, x, y, z, count, (Color) data);
+            return;
+        }
         Particle<?> packetParticle = toPacketParticle(resolved, data);
 
         if (packetParticle == null) {
@@ -182,6 +188,23 @@ public final class Particles {
         }
     }
 
+    /**
+     * Before 1.20.5 the potion swirl takes its color from the offsets too, one particle per packet.
+     */
+    private static void spawnLegacyColored(World world, LumenParticle particle, double x, double y, double z, int count, Color color) {
+        Particle<?> packetParticle = toPacketParticle(particle, null);
+
+        if (packetParticle == null) {
+            return;
+        }
+        Vector3f rgb = new Vector3f(color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f);
+        WrapperPlayServerParticle packet = new WrapperPlayServerParticle(packetParticle, true, new Vector3d(x, y, z), rgb, 1.0f, 0);
+
+        for (int i = 0; i < Math.max(1, count); i++) {
+            send(world, x, y, z, packet);
+        }
+    }
+
     private static void send(World world, double x, double y, double z, WrapperPlayServerParticle packet) {
         for (Player player : world.getPlayers()) {
             Location location = player.getLocation();
@@ -208,6 +231,9 @@ public final class Particles {
             Dust dust = data instanceof Dust ? (Dust) data : new Dust(Color.RED, 1.0f);
             Color color = dust.getColor();
             particleData = new ParticleDustData(dust.getSize(), color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f);
+        } else if (particle == LumenParticle.ENTITY_EFFECT) {
+            Color color = data instanceof Color ? (Color) data : Color.WHITE;
+            particleData = new ParticleColorData(0xFF000000 | color.asRGB());
         } else if (particle == LumenParticle.ITEM) {
             ItemStack itemStack = data instanceof ItemStack ? (ItemStack) data : XMaterial.STONE.parseItem();
             particleData = new ParticleItemStackData(SpigotConversionUtil.fromBukkitItemStack(itemStack));

@@ -59,6 +59,56 @@ public final class Entities {
     }
 
     /**
+     * Mobs that were a variant of another mob before getting their own entity type, mapped to
+     * what to spawn on older servers instead. {@link #applyLegacyVariant} then sets the variant.
+     */
+    public static @org.jetbrains.annotations.Nullable String legacyFallback(String name) {
+        switch (name) {
+            case "CAT":
+                return "OCELOT";
+            case "ZOMBIE_VILLAGER":
+            case "HUSK":
+                return "ZOMBIE";
+            case "ZOMBIE_HORSE":
+            case "SKELETON_HORSE":
+            case "DONKEY":
+            case "MULE":
+                return "HORSE";
+            case "STRAY":
+            case "WITHER_SKELETON":
+                return "SKELETON";
+            case "ELDER_GUARDIAN":
+                return "GUARDIAN";
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Turns the fallback mob back into what the config asked for, on servers where that's a variant.
+     */
+    @SuppressWarnings("deprecation")
+    public static void applyLegacyVariant(Entity entity, @org.jetbrains.annotations.Nullable String configured) {
+        if (configured == null || entity.getType().name().equals(configured.toUpperCase(java.util.Locale.ROOT))) {
+            return;
+        }
+        String name = configured.toUpperCase(java.util.Locale.ROOT);
+
+        if (name.equals("ZOMBIE_VILLAGER") && entity instanceof org.bukkit.entity.Zombie) {
+            ((org.bukkit.entity.Zombie) entity).setVillager(true);
+        } else if (name.equals("CAT") && entity instanceof org.bukkit.entity.Ocelot) {
+            ((org.bukkit.entity.Ocelot) entity).setCatType(org.bukkit.entity.Ocelot.Type.RED_CAT);
+        } else if (name.equals("WITHER_SKELETON") && entity instanceof org.bukkit.entity.Skeleton) {
+            ((org.bukkit.entity.Skeleton) entity).setSkeletonType(org.bukkit.entity.Skeleton.SkeletonType.WITHER);
+        } else if (name.equals("ELDER_GUARDIAN") && entity instanceof org.bukkit.entity.Guardian) {
+            ((org.bukkit.entity.Guardian) entity).setElder(true);
+        } else if (entity instanceof org.bukkit.entity.Horse) {
+            String variant = name.equals("ZOMBIE_HORSE") ? "UNDEAD_HORSE" : name;
+            Horses.setup(entity, 0.7d, false, null, false, variant);
+        }
+    }
+
+    /**
      * Dropped items, called DROPPED_ITEM before 1.20.5 and ITEM after.
      */
     public static org.bukkit.entity.EntityType itemType() {

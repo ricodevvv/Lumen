@@ -56,6 +56,16 @@ public interface Compat {
 
     void addPassenger(Entity vehicle, Entity passenger);
 
+    /**
+     * Teleports a vehicle without losing whoever is riding it.
+     */
+    void teleportWithPassengers(Entity vehicle, Location location);
+
+    /**
+     * True while {@link #teleportWithPassengers} has the riders off for a moment, so dismount listeners can ignore it.
+     */
+    boolean isRepositioning(Entity vehicle);
+
     @Nullable
     ItemStack getItemInHand(Player player);
 

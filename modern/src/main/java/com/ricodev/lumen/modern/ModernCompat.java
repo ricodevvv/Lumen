@@ -40,6 +40,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,27 @@ import java.util.List;
  * gated by version and falls back to the 1.8 behaviour when it isn't there.
  */
 public class ModernCompat extends LegacyCompat {
+
+    private static final @Nullable Method PAPER_TELEPORT;
+    private static final @Nullable Object RETAIN_PASSENGERS;
+
+    static {
+        Method teleport = null;
+        Object flags = null;
+
+        try {
+            Class<?> flagClass = Class.forName("io.papermc.paper.entity.TeleportFlag");
+            Class<?> stateClass = Class.forName("io.papermc.paper.entity.TeleportFlag$EntityState");
+            Object retain = stateClass.getField("RETAIN_PASSENGERS").get(null);
+            flags = Array.newInstance(flagClass, 1);
+            Array.set(flags, 0, retain);
+            teleport = Entity.class.getMethod("teleport", Location.class, flags.getClass());
+        } catch (ReflectiveOperationException | LinkageError ignored) {
+            flags = null;
+        }
+        PAPER_TELEPORT = teleport;
+        RETAIN_PASSENGERS = flags;
+    }
 
     @Override
     public void setAI(LivingEntity entity, boolean ai) {
@@ -117,6 +139,24 @@ public class ModernCompat extends LegacyCompat {
         } else {
             super.addPassenger(vehicle, passenger);
         }
+    }
+
+    @Override
+    public void teleportWithPassengers(Entity vehicle, Location location) {
+        if (PAPER_TELEPORT != null && !getPassengers(vehicle).isEmpty()) {
+            Location current = vehicle.getLocation();
+            Location target = location.clone();
+            target.setYaw(current.getYaw());
+            target.setPitch(current.getPitch());
+
+            try {
+                PAPER_TELEPORT.invoke(vehicle, target, RETAIN_PASSENGERS);
+                vehicle.setRotation(location.getYaw(), location.getPitch());
+                return;
+            } catch (ReflectiveOperationException ignored) {
+            }
+        }
+        super.teleportWithPassengers(vehicle, location);
     }
 
     @Override

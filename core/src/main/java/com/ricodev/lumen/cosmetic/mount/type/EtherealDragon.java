@@ -26,6 +26,7 @@ import com.ricodev.lumen.compat.Particles;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.util.Vector;
 import com.ricodev.lumen.api.cosmetic.CosmeticContext;
 import com.ricodev.lumen.api.cosmetic.mount.MountBehavior;
 import com.ricodev.lumen.api.cosmetic.mount.MountType;
@@ -34,6 +35,7 @@ import com.ricodev.lumen.api.entity.CosmeticEntity;
 public class EtherealDragon implements MountBehavior {
 
     private final Location location = new Location(null, 0.0d, 0.0d, 0.0d);
+    private final Location target = new Location(null, 0.0d, 0.0d, 0.0d);
 
     @Override
     public void onEquip(CosmeticContext<MountType> context) {
@@ -59,16 +61,31 @@ public class EtherealDragon implements MountBehavior {
 
     @Override
     public void onUpdate(CosmeticContext<MountType> context, Entity entity, CosmeticEntity nmsEntity) {
-        if (Compats.get().getPassengers(entity).isEmpty()) {
+        if (Compats.get().getPassengers(entity).isEmpty() && !Compats.get().isRepositioning(entity)) {
             context.getUser().removeCosmetic(context.getType().getCategory(), false, true);
             return;
         }
         context.getPlayer().getLocation(location);
-        nmsEntity.move(location.getDirection().multiply(context.getType().getMovementSpeed()));
         nmsEntity.setYaw(location.getYaw() - 180.0f);
         nmsEntity.setPitch(location.getPitch());
+        nmsEntity.move(clampToAir(entity, location.getDirection().multiply(context.getType().getMovementSpeed())));
 
         Particles.spawn(entity.getWorld(), LumenParticle.PORTAL, entity.getLocation(location), 70, 2.0d, 2.0d, 2.0d, 0.5d);
+    }
+
+    private Vector clampToAir(Entity entity, Vector step) {
+        entity.getLocation(target).add(step);
+
+        if (!target.getBlock().getType().isSolid()) {
+            return step;
+        }
+        step.setY(Math.max(0.0d, step.getY()));
+        entity.getLocation(target).add(step);
+
+        if (target.getBlock().getType().isSolid()) {
+            step.setX(0.0d).setZ(0.0d);
+        }
+        return step;
     }
 
     @Override

@@ -38,12 +38,17 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 1.8 implementation. Things Bukkit didn't have back then (no AI, silent, invulnerable)
  * go through the entity's NBT, the same as summoning it with those tags.
  */
 public class LegacyCompat implements Compat {
+
+    private static final Set<UUID> REPOSITIONING = ConcurrentHashMap.newKeySet();
 
     private Class<?> tagClass;
     private Method getHandle;
@@ -131,6 +136,34 @@ public class LegacyCompat implements Compat {
     @SuppressWarnings("deprecation")
     public void addPassenger(Entity vehicle, Entity passenger) {
         vehicle.setPassenger(passenger);
+    }
+
+    @Override
+    public void teleportWithPassengers(Entity vehicle, Location location) {
+        List<Entity> passengers = getPassengers(vehicle);
+
+        if (passengers.isEmpty()) {
+            vehicle.teleport(location);
+            return;
+        }
+        UUID id = vehicle.getUniqueId();
+        REPOSITIONING.add(id);
+
+        try {
+            vehicle.eject();
+            vehicle.teleport(location);
+
+            for (Entity passenger : passengers) {
+                addPassenger(vehicle, passenger);
+            }
+        } finally {
+            REPOSITIONING.remove(id);
+        }
+    }
+
+    @Override
+    public boolean isRepositioning(Entity vehicle) {
+        return REPOSITIONING.contains(vehicle.getUniqueId());
     }
 
     @Override

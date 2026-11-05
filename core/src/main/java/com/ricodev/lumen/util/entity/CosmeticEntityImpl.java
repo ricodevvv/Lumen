@@ -273,9 +273,22 @@ public class CosmeticEntityImpl implements CosmeticEntity {
     public void move(Vector vector) {
         Location current = getPreviousLocation();
 
-        if (current != null) {
-            sendPositionRotationPacket(current.add(vector));
+        if (current == null) {
+            return;
         }
+        current.add(vector);
+
+        if (entity == null || Compats.get().getPassengers(entity).isEmpty()) {
+            sendPositionRotationPacket(current);
+            return;
+        }
+
+        if (location != null) {
+            current.setYaw(location.getYaw());
+            current.setPitch(location.getPitch());
+        }
+        location = current.clone();
+        Compats.get().teleportWithPassengers(entity, current);
     }
 
     @Override
