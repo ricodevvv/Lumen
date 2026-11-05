@@ -17,12 +17,20 @@
  */
 package com.ricodev.lumen.cosmetic.balloon;
 
+import org.bukkit.inventory.ItemStack;
+
+import com.ricodev.lumen.util.item.Heads;
+
+import com.cryptomorin.xseries.XMaterial;
+
 import com.ricodev.lumen.compat.Compats;
+import com.ricodev.lumen.compat.ServerVersion;
 import com.ricodev.lumen.util.MetadataUtil;
 import com.ricodev.lumen.util.entity.Entities;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.entity.Rabbit;
+import org.bukkit.entity.Zombie;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ArmorStand;
@@ -61,6 +69,9 @@ public class BalloonImpl extends CosmeticImpl<BalloonType, BalloonBehavior> impl
     private static final float ROTATION_DECAY = 0.98f;
     private static final float MIN_ROTATION_SPEED = 1.0f;
     private static final float ROTATION_MULTIPLIER = 1.0f;
+
+    private static final double HEAD_PIVOT_HEIGHT = 1.5d;
+    private static final double LEASH_KNOT_HEIGHT = ServerVersion.atLeast(13) ? 0.26d : 0.75d;
 
     private static final double WIND_STRENGTH = 0.01d;
     private static final double TURBULENCE_FREQUENCY = 0.08d;
@@ -105,12 +116,12 @@ public class BalloonImpl extends CosmeticImpl<BalloonType, BalloonBehavior> impl
         updatePhysics();
 
         if (itemHolder != null) {
-            itemHolder.teleport(location.clone().add(0.0d, -0.4d, 0.0d));
+            itemHolder.teleport(holderLocation());
         } else {
             entity.teleport(location);
         }
         if (leashEntity != null) {
-            leashEntity.teleport(location.clone().add(0.0d, -0.2d, 0.0d));
+            leashEntity.teleport(leashLocation());
         }
         behavior.onUpdate(this, location);
     }
@@ -149,22 +160,24 @@ public class BalloonImpl extends CosmeticImpl<BalloonType, BalloonBehavior> impl
             if (cosmeticType.isBaby() && mob instanceof Ageable) {
                 ((Ageable) mob).setBaby();
                 ((Ageable) mob).setAgeLock(true);
+            } else if (cosmeticType.isBaby() && mob instanceof Zombie) {
+                ((Zombie) mob).setBaby(true);
             }
             mob.setLeashHolder(player);
             entity = mob;
             return;
         }
-        itemHolder = Entities.spawn(location.clone().add(0.0d, -0.4d, 0.0d), ArmorStand.class, stand -> {
+        itemHolder = Entities.spawn(holderLocation(), ArmorStand.class, stand -> {
             stand.setVisible(false);
             stand.setGravity(false);
             stand.setBasePlate(false);
-            stand.setHelmet(getType().getItemStack());
+            stand.setHelmet(headItem());
             MetadataUtil.setCustomEntity(stand);
         });
         Compats.get().setScale(itemHolder, cosmeticType.getScale());
         entity = itemHolder;
 
-        leashEntity = Entities.spawn(location, Rabbit.class, rabbit -> {
+        leashEntity = Entities.spawn(leashLocation(), Rabbit.class, rabbit -> {
             Entities.makeCosmetic(rabbit);
             Compats.get().setGravity(rabbit, false);
             rabbit.setBaby();
@@ -172,6 +185,33 @@ public class BalloonImpl extends CosmeticImpl<BalloonType, BalloonBehavior> impl
             rabbit.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
         });
         leashEntity.setLeashHolder(player);
+    }
+
+    /**
+     * Where the armor stand has to stand so the head it wears starts right at the balloon's
+     * location. An armor stand's head starts {@link #HEAD_PIVOT_HEIGHT} above its feet, scaled with it on 1.20.5+.
+     */
+    private Location holderLocation() {
+        double scale = ServerVersion.atLeast(20, 5) ? cosmeticType.getScale() : 1.0d;
+        return location.clone().add(0.0d, -HEAD_PIVOT_HEIGHT * scale, 0.0d);
+    }
+
+    /**
+     * The client draws the leash a bit above the rabbit holding it, so the rabbit goes that much
+     * lower and the rope ends right under the balloon. Old clients tie it about 0.75 up, new ones
+     * at the baby rabbit's eyes.
+     */
+    private Location leashLocation() {
+        return location.clone().add(0.0d, -LEASH_KNOT_HEIGHT, 0.0d);
+    }
+
+    /**
+     * The cake doesn't work as a hat: before 1.13 an armor stand doesn't draw it at all, and after
+     * that it floats off the head like any other item. A cake head sits where it should everywhere.
+     */
+    private ItemStack headItem() {
+        ItemStack itemStack = getType().getItemStack();
+        return XMaterial.CAKE.isSimilar(itemStack) ? Heads.CAKE.getSkull() : itemStack;
     }
 
     private void removeEntities() {

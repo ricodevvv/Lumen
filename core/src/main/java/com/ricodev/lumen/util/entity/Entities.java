@@ -29,6 +29,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
+import java.util.Collections;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
 /**
@@ -36,6 +39,8 @@ import java.util.function.Consumer;
  * mobs without AI that walk after their owner, and items nobody can pick up.
  */
 public final class Entities {
+
+    private static final Set<Item> DECORATIVE_ITEMS = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
     private Entities() {
     }
@@ -131,6 +136,16 @@ public final class Entities {
         Item item = location.getWorld().dropItem(location, itemStack);
         setup.accept(item);
         return item;
+    }
+
+    /**
+     * Removes decorative items whose removal task never got to run, like when the plugin shuts down.
+     */
+    public static void removeDecorativeItems() {
+        for (Item item : DECORATIVE_ITEMS) {
+            item.remove();
+        }
+        DECORATIVE_ITEMS.clear();
     }
 
     /**
@@ -233,7 +248,12 @@ public final class Entities {
         item.setPickupDelay(Integer.MAX_VALUE);
         item.setVelocity(velocity);
         MetadataUtil.setCustomEntity(item);
-        plugin.getServer().getScheduler().runTaskLater(plugin, item::remove, ticks);
+        Compats.get().setPersistent(item, false);
+        DECORATIVE_ITEMS.add(item);
+        plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+            DECORATIVE_ITEMS.remove(item);
+            item.remove();
+        }, ticks);
         return item;
     }
 }

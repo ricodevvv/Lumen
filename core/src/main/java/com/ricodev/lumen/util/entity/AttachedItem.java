@@ -29,25 +29,29 @@ import org.bukkit.util.EulerAngle;
  */
 public final class AttachedItem {
 
-    private static final double HEAD_HEIGHT = 0.7d;
+    private static final double HEAD_CENTER = 1.75d;
+    private static final double SMALL_HEAD_CENTER = 0.875d;
 
     private final ArmorStand stand;
+    private final double headCenter;
     private final double up;
     private final double forward;
     private final double side;
 
     /**
-     * @param up      blocks above the base location
+     * @param up      blocks above the base location, where the middle of the item ends up
      * @param forward blocks in front of it, along its yaw
      * @param side    blocks to its right
+     * @param small   a small stand draws the item at half size (about 0.3 blocks instead of 0.6)
      */
-    public AttachedItem(Location base, ItemStack itemStack, double up, double forward, double side) {
+    public AttachedItem(Location base, ItemStack itemStack, double up, double forward, double side, boolean small) {
+        this.headCenter = small ? SMALL_HEAD_CENTER : HEAD_CENTER;
         this.up = up;
         this.forward = forward;
         this.side = side;
         this.stand = Entities.spawn(target(base), ArmorStand.class, spawned -> {
             spawned.setVisible(false);
-            spawned.setSmall(true);
+            spawned.setSmall(small);
             spawned.setMarker(true);
             spawned.setGravity(false);
             spawned.setBasePlate(false);
@@ -72,7 +76,7 @@ public final class AttachedItem {
         double yaw = Math.toRadians(base.getYaw());
         double dirX = -Math.sin(yaw);
         double dirZ = Math.cos(yaw);
-        Location target = base.clone().add(dirX * forward - dirZ * side, up - HEAD_HEIGHT, dirZ * forward + dirX * side);
+        Location target = base.clone().add(dirX * forward - dirZ * side, up - headCenter, dirZ * forward + dirX * side);
         target.setPitch(0.0f);
         return target;
     }

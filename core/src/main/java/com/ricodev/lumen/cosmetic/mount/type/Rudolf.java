@@ -66,11 +66,11 @@ public class Rudolf implements MountBehavior {
         Location base = entity.getLocation();
 
         for (int i = 0; i < 2; i++) {
-            AttachedItem horn = new AttachedItem(base, HORN_ITEM, HORN_HEIGHT_OFFSET, HORN_FORWARD_OFFSET, i == 0 ? -HORN_WIDTH_OFFSET : HORN_WIDTH_OFFSET);
+            AttachedItem horn = new AttachedItem(base, HORN_ITEM, HORN_HEIGHT_OFFSET, HORN_FORWARD_OFFSET, i == 0 ? -HORN_WIDTH_OFFSET : HORN_WIDTH_OFFSET, false);
             horn.setHeadPose(-30.0d, i == 0 ? -20.0d : 20.0d, 0.0d);
             decorations.add(horn);
         }
-        AttachedItem nose = new AttachedItem(base, NOSE_ITEM, NOSE_HEIGHT_OFFSET, NOSE_FORWARD_OFFSET, 0.0d);
+        AttachedItem nose = new AttachedItem(base, NOSE_ITEM, NOSE_HEIGHT_OFFSET, NOSE_FORWARD_OFFSET, 0.0d, true);
         decorations.add(nose);
     }
 

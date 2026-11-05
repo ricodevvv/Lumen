@@ -24,6 +24,7 @@ import com.ricodev.lumen.util.entity.AttachedItem;
 import com.ricodev.lumen.util.entity.CosmeticEntities;
 
 import com.ricodev.lumen.compat.Compats;
+import com.ricodev.lumen.compat.ServerVersion;
 
 import com.cryptomorin.xseries.XMaterial;
 
@@ -91,8 +92,8 @@ public class Unicorn extends BlockTrailBehavior {
 
         Horses.setup(entity, 1.0d, false, SADDLE_ITEM, false, null);
         Horses.setColor(entity, "WHITE", "WHITE");
-        horn = new AttachedItem(entity.getLocation(), HORN_ITEM, 1.9d, 1.1d, 0.0d);
-        horn.setHeadPose(-30.0d, 0.0d, 0.0d);
+        horn = new AttachedItem(entity.getLocation(), HORN_ITEM, 1.9d, 1.1d, 0.0d, false);
+        horn.setHeadPose(ServerVersion.atLeast(13) ? -60.0d : 30.0d, 0.0d, 0.0d);
     }
 
     @Override

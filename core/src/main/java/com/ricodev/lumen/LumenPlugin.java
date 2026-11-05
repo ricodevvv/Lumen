@@ -17,6 +17,8 @@
  */
 package com.ricodev.lumen;
 
+import com.ricodev.lumen.util.entity.Entities;
+
 import com.ricodev.lumen.api.Lumen;
 import com.ricodev.lumen.api.LumenProvider;
 import com.ricodev.lumen.api.cosmetic.registry.CategoryRegistries;
@@ -163,6 +165,8 @@ public class LumenPlugin extends JavaPlugin implements Lumen {
                 user.clearAllCosmetics(true, false);
             }
         }
+        Entities.removeDecorativeItems();
+
         if (database != null) {
             database.shutdown();
         }
