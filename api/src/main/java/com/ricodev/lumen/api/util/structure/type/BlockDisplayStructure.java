@@ -17,12 +17,12 @@
  */
 package com.ricodev.lumen.api.util.structure.type;
 
-import com.ricodev.lumen.api.entity.CosmeticEntity;
+import org.bukkit.entity.Entity;
 import com.ricodev.lumen.api.util.structure.Structure;
 
 /**
  * A structure composed of block display entities.
  */
-public interface BlockDisplayStructure extends Structure<CosmeticEntity> {
+public interface BlockDisplayStructure extends Structure<Entity> {
 
 }

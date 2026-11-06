@@ -8,9 +8,9 @@ gadgets, miniatures, morphs, mounts, music, particle effects, pets, statuses and
 plus the menus, coins and purchases, gadget ammo, SQLite/MySQL/MariaDB storage, Vault and
 PlayerPoints, PlaceholderAPI, and the vanish hooks for Essentials and PremiumVanish/SuperVanish.
 
-What's missing are the things built out of display entities that 1.8 has nothing for: the Hype
-Train mount and the gadgets that put up a structure (trampoline, slide, hot tub, rocket and
-friends). Pets, mounts and morphs that use a mob your version doesn't have turn themselves off.
+That includes the gadgets that put up a structure (trampoline, slide, hot tub, rocket, hot air
+balloon, merry-go-round, connect four and friends) and the Hype Train. Pets, mounts and morphs that
+use a mob your version doesn't have turn themselves off.
 
 ## What you need
 
@@ -39,6 +39,15 @@ properly on 1.8 without touching pathfinding. Mounts keep their AI and get pushe
 presses, read from the steer vehicle packet (or the player input one on 1.21.2+). Anything that's
 a display entity on new versions (balloons, horns, holograms, treasure chest text) is an invisible
 armor stand wearing the item instead, the way 1.8 servers always did it.
+
+Gadgets made of floating blocks (cannon, shower, rocket, hot air balloon, the Hype Train) use real
+block displays on 1.19.4+, through the small `display` module. Before that every block is a
+falling block that never falls: no gravity from 1.10, and on 1.8 and 1.9 it rides an invisible
+armor stand with noclip, which is how 1.8 servers always pulled it off. Blocks smaller than a block
+(the connect four pieces, the disco ball) are armor stands wearing the block there. Structures that
+place real blocks (trampoline, hot tub, slide) get the closest material and the right data value
+for stairs, ladders, trapdoors and slabs on pre-1.13 servers, so concrete turns into terracotta and
+so on.
 
 Music doesn't use NoteBlockAPI anymore, Lumen reads the .nbs files itself and plays them with note
 block sounds. Structures (treasure chest platforms) are stored as modern block data strings: 1.13+

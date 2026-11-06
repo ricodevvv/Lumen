@@ -17,29 +17,27 @@
  */
 package com.ricodev.lumen.util.structure.type;
 
-import com.ricodev.lumen.compat.Compats;
-
-import com.ricodev.lumen.util.entity.CosmeticEntities;
-
-import org.bukkit.Location;
 import com.ricodev.lumen.api.util.structure.StructureBlock;
-import org.bukkit.entity.EntityType;
-import org.bukkit.util.Vector;
-import com.ricodev.lumen.LumenPlugin;
-import com.ricodev.lumen.api.entity.EntityTracker;
-import com.ricodev.lumen.api.entity.CosmeticEntity;
 import com.ricodev.lumen.api.util.structure.StructureData;
 import com.ricodev.lumen.api.util.structure.type.BlockDisplayStructure;
-import com.ricodev.lumen.util.entity.EntityTrackerImpl;
 import com.ricodev.lumen.util.MathUtil;
+import com.ricodev.lumen.util.entity.FloatingBlock;
+import com.ricodev.lumen.util.entity.FloatingBlocks;
 import com.ricodev.lumen.util.structure.StructureImpl;
+import org.bukkit.Location;
+import org.bukkit.entity.Entity;
+import org.bukkit.util.Vector;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
-public class BlockDisplayStructureImpl extends StructureImpl<CosmeticEntity> implements BlockDisplayStructure {
+/**
+ * A structure made of {@link FloatingBlock}s, so nothing in the world gets touched.
+ */
+public class BlockDisplayStructureImpl extends StructureImpl<Entity> implements BlockDisplayStructure {
 
-    private static final LumenPlugin PLUGIN = LumenPlugin.getPlugin();
-    private final EntityTracker tracker = new EntityTrackerImpl();
+    private final List<FloatingBlock> blocks = new ArrayList<>();
 
     public BlockDisplayStructureImpl(StructureData data) {
         super(data, block -> !block.getType().isSolid() && !block.isLiquid());
@@ -52,23 +50,23 @@ public class BlockDisplayStructureImpl extends StructureImpl<CosmeticEntity> imp
         for (Map.Entry<Vector, StructureBlock> entry : data.getPlacement().entrySet()) {
             Vector vector = MathUtil.rotateAroundAxisY(entry.getKey().clone(), angle);
             StructureBlock blockData = entry.getValue().rotated(location.getYaw());
-            CosmeticEntity nmsFallingBlock = CosmeticEntities.createItemHolder(location.getWorld(), Compats.get().blockItem(blockData), tracker);
-            location.add(vector);
-            Location clone = location.clone();
-            clone.setYaw(0.0f);
-            clone.setPitch(0.0f);
-            nmsFallingBlock.setPositionRotation(clone);
-            location.subtract(vector);
+            FloatingBlock block = FloatingBlocks.block(location.clone().add(vector), blockData);
 
-            placedEntries.add(nmsFallingBlock);
+            blocks.add(block);
+
+            if (block.getEntity() != null) {
+                placedEntries.add(block.getEntity());
+            }
         }
-        tracker.startTracking();
         return angle;
     }
 
     @Override
     public void remove() {
-        tracker.destroy();
+        for (FloatingBlock block : blocks) {
+            FloatingBlocks.remove(block);
+        }
+        blocks.clear();
         placedEntries.clear();
     }
 }

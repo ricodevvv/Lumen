@@ -422,18 +422,43 @@ public class LegacyCompat implements Compat {
     }
 
     protected static XMaterial material(com.ricodev.lumen.api.util.structure.StructureBlock data) {
-        XMaterial material = XMaterial.matchXMaterial(data.getMaterial()).orElse(null);
-        return material != null && material.isSupported() ? material : XMaterial.STONE;
+        return LegacyBlocks.material(data);
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void setBlock(Block block, com.ricodev.lumen.api.util.structure.StructureBlock data) {
-        com.cryptomorin.xseries.XBlock.setType(block, material(data), false);
+        XMaterial material = material(data);
+        Material type = material.parseMaterial();
+
+        if (type == null) {
+            return;
+        }
+        if (ServerVersion.atLeast(13)) {
+            com.cryptomorin.xseries.XBlock.setType(block, material, false);
+            return;
+        }
+        block.setType(type, false);
+        block.setData(LegacyBlocks.data(data, material), false);
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void sendBlockChange(Player player, Location location, com.ricodev.lumen.api.util.structure.StructureBlock data) {
-        sendBlockChange(player, location, material(data));
+        XMaterial material = material(data);
+        Material type = material.parseMaterial();
+
+        if (type != null) {
+            player.sendBlockChange(location, type, LegacyBlocks.data(data, material));
+        }
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public org.bukkit.entity.FallingBlock spawnFallingBlock(Location location, com.ricodev.lumen.api.util.structure.StructureBlock data) {
+        XMaterial material = material(data);
+        Material type = material.parseMaterial();
+        return location.getWorld().spawnFallingBlock(location, type != null ? type : Material.STONE, LegacyBlocks.data(data, material));
     }
 
     @Override

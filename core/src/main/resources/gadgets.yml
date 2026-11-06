@@ -88,6 +88,38 @@ cosmetics:
           minimum_amount: 16
           maximum_amount: 32
 
+  cannon:
+    enabled: true
+    rarity: "uncommon"
+    purchasable:
+      enabled: true
+      cost: 2500
+    cooldown: 20.0
+    duration: 10.0
+    item: "minecraft:coal"
+    count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
+    ammo:
+      rarity: "common"
+      infinity: false
+      purchasable:
+        enabled: true
+        amount: 10
+        cost: 200
+      treasure_chests:
+        common:
+          minimum_amount: 2
+          maximum_amount: 8
+        rare:
+          minimum_amount: 8
+          maximum_amount: 16
+        legendary:
+          minimum_amount: 16
+          maximum_amount: 32
+
   chicken_parachute:
     enabled: true
     rarity: "uncommon"
@@ -119,6 +151,44 @@ cosmetics:
           minimum_amount: 16
           maximum_amount: 32
 
+  coin_party_bomb:
+    enabled: true
+    rarity: "rare"
+    purchasable:
+      enabled: true
+      cost: 10000
+    cooldown: 50.0
+    duration: 25.0
+    # Specifies the number of coins a player receives for each coin collected.
+    # Coins drop every 4 ticks (5 coin items per second at 20 TPS).
+    # Total coin items dropped: (duration * 20) / 4
+    # Total value given: total_coins * pickup_reward
+    # Example with current settings: ((25 * 20) / 4) * 10 = 1250
+    pickup_reward: 10
+    item: "minecraft:sunflower"
+    count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
+    ammo:
+      rarity: "uncommon"
+      infinity: false
+      purchasable:
+        enabled: true
+        amount: 1
+        cost: 1500
+      treasure_chests:
+        common:
+          minimum_amount: 1
+          maximum_amount: 1
+        rare:
+          minimum_amount: 1
+          maximum_amount: 2
+        legendary:
+          minimum_amount: 1
+          maximum_amount: 3
+
   confetti:
     enabled: true
     rarity: "rare"
@@ -138,6 +208,37 @@ cosmetics:
       purchasable:
         enabled: true
         amount: 50
+        cost: 100
+      treasure_chests:
+        common:
+          minimum_amount: 2
+          maximum_amount: 8
+        rare:
+          minimum_amount: 8
+          maximum_amount: 16
+        legendary:
+          minimum_amount: 16
+          maximum_amount: 32
+
+  connect_four:
+    enabled: true
+    rarity: "rare"
+    purchasable:
+      enabled: true
+      cost: 10000
+    cooldown: 15.0
+    item: "minecraft:red_concrete"
+    count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
+    ammo:
+      rarity: "common"
+      infinity: false
+      purchasable:
+        enabled: true
+        amount: 30
         cost: 100
       treasure_chests:
         common:
@@ -201,6 +302,70 @@ cosmetics:
         enabled: true
         amount: 10
         cost: 300
+      treasure_chests:
+        common:
+          minimum_amount: 2
+          maximum_amount: 8
+        rare:
+          minimum_amount: 8
+          maximum_amount: 16
+        legendary:
+          minimum_amount: 16
+          maximum_amount: 32
+
+  disco_ball:
+    enabled: true
+    rarity: "rare"
+    purchasable:
+      enabled: true
+      cost: 10000
+    cooldown: 50.0
+    duration: 15.0
+    item: "minecraft:blue_stained_glass"
+    count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
+    ammo:
+      rarity: "common"
+      infinity: false
+      purchasable:
+        enabled: true
+        amount: 5
+        cost: 250
+      treasure_chests:
+        common:
+          minimum_amount: 2
+          maximum_amount: 8
+        rare:
+          minimum_amount: 8
+          maximum_amount: 16
+        legendary:
+          minimum_amount: 16
+          maximum_amount: 32
+
+  diving_board:
+    enabled: true
+    rarity: "rare"
+    purchasable:
+      enabled: true
+      cost: 10000
+    cooldown: 80.0
+    duration: 60.0
+    item: "minecraft:white_carpet"
+    count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
+    ammo:
+      rarity: "common"
+      infinity: false
+      purchasable:
+        enabled: true
+        amount: 10
+        cost: 200
       treasure_chests:
         common:
           minimum_amount: 2
@@ -400,6 +565,70 @@ cosmetics:
           minimum_amount: 16
           maximum_amount: 32
 
+  hot_air_balloon:
+    enabled: true
+    rarity: "rare"
+    purchasable:
+      enabled: true
+      cost: 10000
+    cooldown: 60.0
+    duration: 40.0
+    item: "minecraft:campfire"
+    count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
+    ammo:
+      rarity: "common"
+      infinity: false
+      purchasable:
+        enabled: true
+        amount: 10
+        cost: 200
+      treasure_chests:
+        common:
+          minimum_amount: 2
+          maximum_amount: 8
+        rare:
+          minimum_amount: 8
+          maximum_amount: 16
+        legendary:
+          minimum_amount: 16
+          maximum_amount: 32
+
+  hot_tub:
+    enabled: true
+    rarity: "rare"
+    purchasable:
+      enabled: true
+      cost: 10000
+    cooldown: 80.0
+    duration: 60.0
+    item: "minecraft:magma_block"
+    count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
+    ammo:
+      rarity: "common"
+      infinity: false
+      purchasable:
+        enabled: true
+        amount: 10
+        cost: 200
+      treasure_chests:
+        common:
+          minimum_amount: 2
+          maximum_amount: 8
+        rare:
+          minimum_amount: 8
+          maximum_amount: 16
+        legendary:
+          minimum_amount: 16
+          maximum_amount: 32
+
   melon_launcher:
     enabled: true
     rarity: "uncommon"
@@ -420,6 +649,38 @@ cosmetics:
         enabled: true
         amount: 20
         cost: 150
+      treasure_chests:
+        common:
+          minimum_amount: 2
+          maximum_amount: 8
+        rare:
+          minimum_amount: 8
+          maximum_amount: 16
+        legendary:
+          minimum_amount: 16
+          maximum_amount: 32
+
+  merry_go_round:
+    enabled: true
+    rarity: "legendary"
+    purchasable:
+      enabled: true
+      cost: 50000
+    cooldown: 80.0
+    duration: 60.0
+    item: "minecraft:minecart"
+    count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
+    ammo:
+      rarity: "common"
+      infinity: false
+      purchasable:
+        enabled: true
+        amount: 5
+        cost: 600
       treasure_chests:
         common:
           minimum_amount: 2
@@ -526,6 +787,101 @@ cosmetics:
           minimum_amount: 16
           maximum_amount: 32
 
+  rocket:
+    enabled: true
+    rarity: "legendary"
+    purchasable:
+      enabled: true
+      cost: 50000
+    cooldown: 30.0
+    item: "minecraft:iron_block"
+    count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
+    ammo:
+      rarity: "common"
+      infinity: false
+      purchasable:
+        enabled: true
+        amount: 5
+        cost: 500
+      treasure_chests:
+        common:
+          minimum_amount: 2
+          maximum_amount: 8
+        rare:
+          minimum_amount: 8
+          maximum_amount: 16
+        legendary:
+          minimum_amount: 16
+          maximum_amount: 32
+
+  shower:
+    enabled: true
+    rarity: "rare"
+    purchasable:
+      enabled: true
+      cost: 10000
+    cooldown: 80.0
+    duration: 60.0
+    item: "minecraft:water_bucket"
+    count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
+    ammo:
+      rarity: "common"
+      infinity: false
+      purchasable:
+        enabled: true
+        amount: 10
+        cost: 200
+      treasure_chests:
+        common:
+          minimum_amount: 2
+          maximum_amount: 8
+        rare:
+          minimum_amount: 8
+          maximum_amount: 16
+        legendary:
+          minimum_amount: 16
+          maximum_amount: 32
+
+  slide:
+    enabled: true
+    rarity: "epic"
+    purchasable:
+      enabled: true
+      cost: 20000
+    cooldown: 80.0
+    duration: 60.0
+    item: "minecraft:warped_stairs"
+    count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
+    ammo:
+      rarity: "common"
+      infinity: false
+      purchasable:
+        enabled: true
+        amount: 10
+        cost: 200
+      treasure_chests:
+        common:
+          minimum_amount: 2
+          maximum_amount: 8
+        rare:
+          minimum_amount: 8
+          maximum_amount: 16
+        legendary:
+          minimum_amount: 16
+          maximum_amount: 32
+
   soccer_ball:
     enabled: true
     rarity: "rare"
@@ -558,6 +914,38 @@ cosmetics:
           minimum_amount: 16
           maximum_amount: 32
 
+  swing:
+    enabled: true
+    rarity: "epic"
+    purchasable:
+      enabled: true
+      cost: 20000
+    cooldown: 80.0
+    duration: 60.0
+    item: "minecraft:string"
+    count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
+    ammo:
+      rarity: "common"
+      infinity: false
+      purchasable:
+        enabled: true
+        amount: 10
+        cost: 200
+      treasure_chests:
+        common:
+          minimum_amount: 2
+          maximum_amount: 8
+        rare:
+          minimum_amount: 8
+          maximum_amount: 16
+        legendary:
+          minimum_amount: 16
+          maximum_amount: 32
+
   tnt:
     enabled: true
     rarity: "rare"
@@ -578,6 +966,38 @@ cosmetics:
         enabled: true
         amount: 10
         cost: 250
+      treasure_chests:
+        common:
+          minimum_amount: 2
+          maximum_amount: 8
+        rare:
+          minimum_amount: 8
+          maximum_amount: 16
+        legendary:
+          minimum_amount: 16
+          maximum_amount: 32
+
+  trampoline:
+    enabled: true
+    rarity: "epic"
+    purchasable:
+      enabled: true
+      cost: 20000
+    cooldown: 40.0
+    duration: 35.0
+    item: "minecraft:black_wool"
+    count: 1
+    treasure_chests:
+      - common
+      - rare
+      - legendary
+    ammo:
+      rarity: "common"
+      infinity: false
+      purchasable:
+        enabled: true
+        amount: 10
+        cost: 500
       treasure_chests:
         common:
           minimum_amount: 2
@@ -653,4 +1073,4 @@ cosmetics:
           maximum_amount: 32
 
 # Do not edit this!
-config_version: 1
+config_version: 2

@@ -18,6 +18,7 @@
 package com.ricodev.lumen;
 
 import com.ricodev.lumen.util.entity.Entities;
+import com.ricodev.lumen.util.entity.FloatingBlocks;
 
 import com.ricodev.lumen.api.Lumen;
 import com.ricodev.lumen.api.LumenProvider;
@@ -166,6 +167,7 @@ public class LumenPlugin extends JavaPlugin implements Lumen {
             }
         }
         Entities.removeDecorativeItems();
+        FloatingBlocks.removeAll();
 
         if (database != null) {
             database.shutdown();

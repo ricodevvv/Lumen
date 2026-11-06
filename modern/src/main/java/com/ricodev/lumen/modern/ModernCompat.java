@@ -21,6 +21,7 @@ import com.cryptomorin.xseries.XAttribute;
 import com.cryptomorin.xseries.XMaterial;
 import com.github.retrooper.packetevents.protocol.world.states.WrappedBlockState;
 import io.github.retrooper.packetevents.util.SpigotConversionUtil;
+import com.ricodev.lumen.compat.LegacyBlocks;
 import com.ricodev.lumen.compat.LegacyCompat;
 import com.ricodev.lumen.compat.ServerVersion;
 import org.bukkit.Location;
@@ -382,11 +383,23 @@ public class ModernCompat extends LegacyCompat {
     }
 
     private static org.bukkit.block.data.@Nullable BlockData blockData(com.ricodev.lumen.api.util.structure.StructureBlock data) {
-        try {
-            return org.bukkit.Bukkit.createBlockData(data.getData());
-        } catch (IllegalArgumentException e) {
-            return null;
+        for (String candidate : LegacyBlocks.candidates(data)) {
+            try {
+                return org.bukkit.Bukkit.createBlockData(candidate);
+            } catch (IllegalArgumentException ignored) {
+            }
         }
+        return null;
+    }
+
+    @Override
+    public org.bukkit.entity.FallingBlock spawnFallingBlock(Location location, com.ricodev.lumen.api.util.structure.StructureBlock data) {
+        org.bukkit.block.data.BlockData blockData = ServerVersion.atLeast(13) ? blockData(data) : null;
+
+        if (blockData != null) {
+            return location.getWorld().spawnFallingBlock(location, blockData);
+        }
+        return super.spawnFallingBlock(location, data);
     }
 
     @Override

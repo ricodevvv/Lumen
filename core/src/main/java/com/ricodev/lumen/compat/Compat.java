@@ -143,6 +143,8 @@ public interface Compat {
      */
     void setBlock(Block block, com.ricodev.lumen.api.util.structure.StructureBlock data);
 
+    org.bukkit.entity.FallingBlock spawnFallingBlock(Location location, com.ricodev.lumen.api.util.structure.StructureBlock data);
+
     void sendBlockChange(Player player, Location location, com.ricodev.lumen.api.util.structure.StructureBlock data);
 
     ItemStack blockItem(com.ricodev.lumen.api.util.structure.StructureBlock data);

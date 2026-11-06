@@ -17,50 +17,50 @@
  */
 package com.ricodev.lumen.util.structure.type;
 
-import com.ricodev.lumen.util.entity.CosmeticEntities;
-
-import com.ricodev.lumen.compat.Compats;
-
-import org.bukkit.Location;
 import com.ricodev.lumen.api.util.structure.StructureBlock;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.util.Vector;
-import com.ricodev.lumen.LumenPlugin;
-import com.ricodev.lumen.api.entity.EntityTracker;
-import com.ricodev.lumen.api.entity.CosmeticEntity;
 import com.ricodev.lumen.api.util.structure.StructureData;
 import com.ricodev.lumen.api.util.structure.type.ParentBlockDisplayStructure;
-import com.ricodev.lumen.util.entity.EntityTrackerImpl;
 import com.ricodev.lumen.util.MathUtil;
+import com.ricodev.lumen.util.entity.FloatingBlock;
+import com.ricodev.lumen.util.entity.FloatingBlocks;
 import com.ricodev.lumen.util.structure.StructureImpl;
+import org.bukkit.Location;
+import org.bukkit.entity.Entity;
+import org.bukkit.util.Vector;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
-public class ParentBlockDisplayStructureImpl extends StructureImpl<CosmeticEntity> implements ParentBlockDisplayStructure {
+/**
+ * A structure that moves along with a parent entity, like the rocket and the hot air balloon. On
+ * display entities the blocks ride the parent, on falling blocks {@link #follow()} has to be called
+ * every time the parent moves.
+ */
+public class ParentBlockDisplayStructureImpl extends StructureImpl<Entity> implements ParentBlockDisplayStructure {
 
-    private static final LumenPlugin PLUGIN = LumenPlugin.getPlugin();
-    private final EntityTracker tracker = new EntityTrackerImpl();
+    private final List<FloatingBlock> blocks = new ArrayList<>();
 
     public ParentBlockDisplayStructureImpl(StructureData data) {
         super(data, block -> !block.getType().isSolid() && !block.isLiquid());
     }
 
+    @Override
     public double spawn(Location location, Entity parent, float heightOffset) {
         double angle = calculateAngle(location);
+        Location base = parent.getLocation().subtract(0.0d, heightOffset, 0.0d);
 
         for (Map.Entry<Vector, StructureBlock> entry : data.getPlacement().entrySet()) {
             Vector vector = MathUtil.rotateAroundAxisY(entry.getKey().clone(), angle);
             StructureBlock blockData = entry.getValue().rotated(location.getYaw());
+            FloatingBlock block = FloatingBlocks.block(base.clone().add(vector), blockData, 1.0f, parent);
 
-            CosmeticEntity nmsFallingBlock = CosmeticEntities.createItemHolder(location.getWorld(), Compats.get().blockItem(blockData), tracker);
-            location.add(vector);
-            nmsFallingBlock.setPositionRotation(location);
-            location.subtract(vector);
+            blocks.add(block);
 
-            placedEntries.add(nmsFallingBlock);
+            if (block.getEntity() != null) {
+                placedEntries.add(block.getEntity());
+            }
         }
-        tracker.startTracking();
         return angle;
     }
 
@@ -69,9 +69,21 @@ public class ParentBlockDisplayStructureImpl extends StructureImpl<CosmeticEntit
         return 0;
     }
 
+    /**
+     * Moves every block back next to the parent.
+     */
+    public void follow() {
+        for (FloatingBlock block : blocks) {
+            block.follow();
+        }
+    }
+
     @Override
     public void remove() {
-        tracker.destroy();
+        for (FloatingBlock block : blocks) {
+            FloatingBlocks.remove(block);
+        }
+        blocks.clear();
         placedEntries.clear();
     }
 }

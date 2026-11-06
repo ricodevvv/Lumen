@@ -19,13 +19,12 @@ package com.ricodev.lumen.api.util.structure.type;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
-import com.ricodev.lumen.api.entity.CosmeticEntity;
 import com.ricodev.lumen.api.util.structure.Structure;
 
 /**
  * A structure composed of block display entities attached to a parent entity.
  */
-public interface ParentBlockDisplayStructure extends Structure<CosmeticEntity> {
+public interface ParentBlockDisplayStructure extends Structure<Entity> {
 
     /**
      * Spawns the structure at the given location, attaching all block displays to a parent entity.

@@ -47,6 +47,7 @@ dependencies {
     implementation(project(":api"))
     implementation(project(":core"))
     implementation(project(":modern"))
+    implementation(project(":display"))
 }
 
 tasks.named<ShadowJar>("shadowJar") {

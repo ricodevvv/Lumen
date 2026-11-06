@@ -27,15 +27,19 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import com.ricodev.lumen.api.util.structure.StructureBlock;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.Nullable;
 import com.ricodev.lumen.api.util.structure.StructureData;
 import com.ricodev.lumen.api.util.structure.type.BlockStructure;
 import com.ricodev.lumen.util.MathUtil;
 import com.ricodev.lumen.util.MetadataUtil;
 import com.ricodev.lumen.util.structure.StructureImpl;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class BlockStructureImpl extends StructureImpl<Block> implements BlockStructure {
+
+    private final Map<Block, StructureBlock> placedData = new HashMap<>();
 
     public BlockStructureImpl(StructureData data) {
         super(data, block -> Materials.isAir(block.getType()));
@@ -63,6 +67,7 @@ public class BlockStructureImpl extends StructureImpl<Block> implements BlockStr
             location.subtract(vector);
             MetadataUtil.setCustomBlock(block);
             placedEntries.add(block);
+            placedData.put(block, blockData);
         }
         return angle;
     }
@@ -70,9 +75,17 @@ public class BlockStructureImpl extends StructureImpl<Block> implements BlockStr
     @Override
     public void remove() {
         for (Block block : placedEntries) {
-            block.setType(Material.AIR);
+            block.setType(Material.AIR, false);
             MetadataUtil.removeCustomBlock(block);
         }
         placedEntries.clear();
+        placedData.clear();
+    }
+
+    /**
+     * The block data a placed block was meant to have, which older servers can't always show.
+     */
+    public @Nullable StructureBlock getPlacedData(Block block) {
+        return placedData.get(block);
     }
 }
